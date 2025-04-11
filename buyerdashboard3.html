@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-Role Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    section { display: none; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<section id="buyerDashboard" class="p-6">
+    <header class="bg-white shadow-md p-4 flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-bold text-gray-700">Buyer Dashboard</h1>
+      <nav>
+        <ul class="flex gap-4 text-gray-600">
+          <li><a href="products.html" class="hover:text-blue-500">Shop</a></li>
+          <li><a href="buyer-orders.html" class="hover:text-blue-500">My Orders</a></li>
+          <li><a href="buyer-wishlist.html" class="hover:text-blue-500">Wishlist</a></li>
+          <li><a href="login.html" class="hover:text-blue-500">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h3 class="text-xl font-semibold mb-2">My Orders</h3>
+    <ul class="bg-white rounded-xl p-4 shadow space-y-2 mb-6">
+      <li class="flex justify-between">
+        <span>Woven Basket</span>
+        <span class="text-green-600">Delivered</span>
+      </li>
+      <li class="flex justify-between">
+        <span>Handmade Necklace</span>
+        <span class="text-yellow-600">Pending</span>
+      </li>
+    </ul>
+
+    <h3 class="text-xl font-semibold mb-2">My Wishlist</h3>
+    <ul class="bg-white rounded-xl p-4 shadow space-y-2">
+      <li class="flex justify-between">
+        <span>Beaded Earrings</span>
+        <span class="text-gray-600">R120</span>
+      </li>
+      <li class="flex justify-between">
+        <span>Clay Teacup Set</span>
+        <span class="text-gray-600">R280</span>
+      </li>
+    </ul>
+  </section>
+  <script>
+    
+    const role = "buyer";
+
+    document.getElementById("buyerDashboard").style.display = role === "buyer" ? "block" : "none";
+    document.getElementById("sellerDashboard").style.display = role === "seller" ? "block" : "none";
+    document.getElementById("adminDashboard").style.display = role === "admin" ? "block" : "none";
+  </script>
+
+</body>
+</html>
