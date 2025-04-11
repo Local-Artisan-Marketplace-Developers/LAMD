@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard Login</title>
+  <link rel="stylesheet" href="styleAdmin.css">
 </head>
 <body>
-    <h2>Dear Admin Login down below.</h2>
+  <main>
+    <header>
+      <h1>Welcome to "LAMP"</h1>
+      <p>Please sign in to continue</p>
+    </header>
+
+    <section>
+      <form action="/admin/login" method="post">
+        <p>
+          <label for="email">Email</label><br>
+          <input type="text" id="email" name="email" required
+            oninvalid="this.setCustomValidity('Email is required')"
+            oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password" required
+            oninvalid="this.setCustomValidity('Password is required')"
+            oninput="this.setCustomValidity('')">
+        </p>
+        <p>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </p>
+        <p>
+          <button type="submit">Log In</button>
+        </p>
+        <p class="separator">OR</p>
+        <p>
+          <button type="button" class="google">Continue with Google</button>
+        </p>
+        <p class="signup-text">
+          Not a member? <a href="#">Sign up here</a>
+        </p>
+      </form>
+    </section>
+  </main>
 </body>
 </html>
