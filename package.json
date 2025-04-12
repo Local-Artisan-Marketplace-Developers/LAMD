@@ -22,7 +22,9 @@
     "jest-environment-jsdom": "^29.7.0"
   },
   "scripts": {
-  "build": "echo 'No build needed'"
+    "test": "jest --coverage",
+    "build": "echo 'No build needed'"
   }
+
 
 }
