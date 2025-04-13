@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styleAdminDashboard.css">
+</head>
+<body>
+  <nav>
+    <h1>Admin</h1>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Orders</a></li>
+      <li><a href="#">Users</a></li>
+      <li><a href="#">Settings</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </nav>
+  <main id="dashboard">
+    <article>
+      <h2>Welcome Back, Admin</h2>
+      <h3>Quick Stats</h3>
+      <p>Total Orders: 2345</p>
+      <p>New Users: 123</p>
+    </article>
+    <article>
+      <h3>Post New Product</h3>
+      <form onsubmit="addProduct(event)">
+        <input type="text" placeholder="Product Name" required>
+        <input type="text" placeholder="Category" required>
+        <input type="text" placeholder="Price" required>
+        <button type="submit">Post Product</button>
+      </form>
+    </article>
+  </main>
+  <script>
+    function addProduct(e) {
+      e.preventDefault();
+      alert('New product posted!');
+    }
+
+    function logout() {
+      alert('Logged out! Redirecting to login page...');
+      window.location.href = '/login';
+    }
+  </script>
+</body>
+</html>
