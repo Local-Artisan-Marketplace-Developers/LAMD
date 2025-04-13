@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard Login</title>
-  <link rel="stylesheet" href="styleAdmin.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArtisanAvenue</title>
+  <link rel="stylesheet" href="login.css"/>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>Welcome to "LAMP"</h1>
-      <p>Please sign in to continue</p>
-    </header>
+  <div class="container">
+    <h2>Welcome to ArtisanAvenue</h2>
 
-    <section>
-      <form action="/admin/login" method="post">
-        <p>
-          <label for="email">Email</label><br>
-          <input type="text" id="email" name="email" required
-            oninvalid="this.setCustomValidity('Email is required')"
-            oninput="this.setCustomValidity('')">
-        </p>
-        <p>
-          <label for="password">Password</label><br>
-          <input type="password" id="password" name="password" required
-            oninvalid="this.setCustomValidity('Password is required')"
-            oninput="this.setCustomValidity('')">
-        </p>
-        <p>
-          <a href="#" class="forgot-password">Forgot Password?</a>
-        </p>
-        <p>
-          <button type="submit">Log In</button>
-        </p>
-        <p class="separator">OR</p>
-        <p>
-          <button type="button" class="google">Continue with Google</button>
-        </p>
-        <p class="signup-text">
-          Not a member? <a href="#">Sign up here</a>
-        </p>
+    <div id="formContainer">
+      <!-- Register Form -->
+      <form id="registerForm" class="form">
+        <h3>Register</h3>
+        <input type="text" id="regName" placeholder="Name" required/>
+        <input type="text" id="regSurname" placeholder="Surname" required/>
+        <input type="email" id="regEmail" placeholder="Email" required/>
+        <input type="tel" id="regPhone" placeholder="Phone Number" required/>
+        <input type="password" id="regPassword" placeholder="Password" required/>
+        <button type="submit">Register</button>
+        <div id="googleRegisterBtn"></div>
+        <p>Already have an account? <span onclick="toggleForm()">Login</span></p>
       </form>
-    </section>
-  </main>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="form hidden">
+        <h3>Login</h3>
+        <input type="email" id="loginEmail" placeholder="Email" required/>
+        <input type="password" id="loginPassword" placeholder="Password" required/>
+        <button type="button" onclick="window.location.href='AdminDashboard.html'">Login</button>
+        <div id="googleLoginBtn"></div>
+        <p>Don't have an account? <span onclick="toggleForm()">Register</span></p>
+      </form>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script src="login.js"></script>
 </body>
 </html>
