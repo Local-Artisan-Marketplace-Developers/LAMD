@@ -1,50 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="styleAdminDashboard.css">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-  <nav>
-    <h1>Admin</h1>
-    <ul>
-      <li><a href="#">Dashboard</a></li>
-      <li><a href="#">Products</a></li>
-      <li><a href="#">Orders</a></li>
-      <li><a href="#">Users</a></li>
-      <li><a href="#">Settings</a></li>
-      <li><a href="#" onclick="logout()">Logout</a></li>
-    </ul>
-  </nav>
-  <main id="dashboard">
-    <article>
-      <h2>Welcome Back, Admin</h2>
-      <h3>Quick Stats</h3>
-      <p>Total Orders: 2345</p>
-      <p>New Users: 123</p>
-    </article>
-    <article>
-      <h3>Post New Product</h3>
-      <form onsubmit="addProduct(event)">
-        <input type="text" placeholder="Product Name" required>
-        <input type="text" placeholder="Category" required>
-        <input type="text" placeholder="Price" required>
-        <button type="submit">Post Product</button>
-      </form>
-    </article>
-  </main>
-  <script>
-    function addProduct(e) {
-      e.preventDefault();
-      alert('New product posted!');
-    }
+  <section class="dashboard-layout">
+    <aside>
+      <h2>Admin Panel</h2>
+      <nav>
+        <a href="#">Dashboard</a>
+        <a href="#">Users</a>
+        <a href="#">Orders</a>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+        <a href="#" onclick="logout()">Logout</a>
+      </nav>
+    </aside>
+    
+    <main>
+      <header class="page-header">
+        <h1>Welcome, Admin</h1>
+        <section class="profile-section" tabindex="0">
+          <img src="pictures/ProfileIcon.png" alt="Profile Icon" width="28" height="28" class="profile-icon"/>
+        </section>
+      </header>
+      <section id="dashboardSection">
+        <section class="cards">
+          <article class="card">
+            <h3>Total Users</h3>
+            <p>4</p>
+          </article>
+          <article class="card">
+            <h3>Orders Today</h3>
+            <p>2</p>
+          </article>
+          <article class="card">
+            <h3>Total Sales</h3>
+            <p>R12,000</p>
+          </article>
+        </section>
+        <section class="reports">
+          <h3>Sales Overview</h3>
+          <canvas id="salesChart" width="400" height="200"></canvas>
+          <button onclick="exportChartToPDF('salesChart')">Export Sales Chart to PDF</button>
+          <button onclick="exportChartToCSV('salesChart')">Export Sales Chart to CSV</button>
+    
+          <h3 style="margin-top: 40px;">Inventory Status</h3>
+          <canvas id="inventoryChart" width="400" height="200"></canvas>
+          <button onclick="exportChartToPDF('inventoryChart')">Export Inventory Chart to PDF</button>
+          <button onclick="exportChartToCSV('inventoryChart')">Export Inventory Chart to CSV</button>
+    
+          <h3 style="margin-top: 40px;">Custom Reports</h3>
+          <table id="customReportTable">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Stock Level</th>
+                <th>Price</th>
+                <th>Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Product 1</td>
+                <td>120</td>
+                <td>R50</td>
+                <td>230</td>
+              </tr>
+              <tr>
+                <td>Product 2</td>
+                <td>85</td>
+                <td>R30</td>
+                <td>150</td>
+              </tr>
+              <tr>
+                <td>Product 3</td>
+                <td>200</td>
+                <td>R75</td>
+                <td>500</td>
+              </tr>
+            </tbody>
+          </table>
+          <button onclick="exportTableToPDF()">Export Custom Report to PDF</button>
+          <button onclick="exportTableToCSV()">Export Custom Report to CSV</button>
+        </section>
+      </section>
+    
+      <section id="usersSection" hidden>
+        <h2>User Management</h2>
+        <section>
+          <article>
+            <h3>Admin</h3>
+            <p>Email: kuhle@gmail.com</p>
+          </article>
+          <article>
+            <h3>Approved Sellers</h3>
+            <p>Email: yonwaba@gmail.com</p>
+            <p>Email: yamkela@gmail.com</p>
+            <p>Email: njabulo@gmail.com</p>
+            <p>Email: katleho@gmail.com</p>
+          </article>
+          <article>
+            <h3>Users</h3>
+            <p>Email: sino@gmail.com</p>
+            <p>Email: inga@gmail.com</p>
+          </article>
+        </section>
+      </section>
+    
+      <section id="ordersSection" hidden>
+        <h2>Recent Orders</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#001</td>
+              <td>Inga Bikitsha</td>
+              <td>R250</td>
+              <td>Shipped</td>
+            </tr>
+            <tr>
+              <td>#002</td>
+              <td>Sinothando Dlomo</td>
+              <td>R430</td>
+              <td>Pending</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    
+      <section id="reportsSection" hidden>
+        <h2>Reports</h2>
+        <section>
+          <article>
+            <h3>Weekly Summary</h3>
+            <p>Sales up 8%, 2 new users registered.</p>
+          </article>
+          <article>
+            <h3>Monthly Growth</h3>
+            <p>Total revenue: R120,000 | Profit: R35,000</p>
+          </article>
+        </section>
+      </section>
+    
+      <section id="settingsSection" hidden>
+        <h2>Settings</h2>
+        <nav style="margin-bottom: 20px;">
+          <a href="#" onclick="showSettingsTab('General')">General</a>
+          <a href="#" onclick="showSettingsTab('AdminAccount')">Admin Account</a>
+        </nav>
+        <section id="General" class="settings-tab" style="display: none; flex-direction: row; gap: 60px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap;">
+          <form style="flex: 2; min-width: 300px;">
+            <section style="display: flex; flex-direction: column; gap: 20px;">
+              <label>
+                First Name:
+                <input type="text" name="firstName" required />
+              </label>
+              <label>
+                Last Name:
+                <input type="text" name="lastName" required />
+              </label>
+              <label>
+                Email:
+                <input type="email" name="email" required />
+              </label>
+              <label>
+                Phone Number:
+                <input type="tel" name="phone" />
+              </label>
+              <label>
+                Birthday:
+                <input type="date" name="birthday" />
+              </label>
+              <button type="submit">Save Changes</button>
+            </section>
+          </form>
+          <section style="flex: 1; text-align: center;">
+            <img id="profilePreview" src="pictures/ProfileIcon.png" alt="Upload Icon" width="120" height="120" style="border-radius: 50%; background-color: #2a2a40; padding: 10px; cursor: pointer;" />
+            <p style="margin-top: 10px;">Click image to upload</p>
+            <input type="file" id="profilePicUpload" name="profilePicUpload" accept="image/*" hidden />
+          </section>
+        </section>
 
-    function logout() {
-      alert('Logged out! Redirecting to login page...');
-      window.location.href = '/login';
-    }
-  </script>
+        <section id="AdminAccount" style="display: none; gap: 40px; align-items: flex-start;">
+          <form style="flex: 1;">
+            <section style="display: flex; flex-direction: column; gap: 20px;">
+              <label>
+                Email:
+                <input type="email" name="adminEmail" value="email" required />
+              </label>
+              <label>
+                Username:
+                <input type="text" name="adminUsername" value="admin" required />
+              </label>
+              <label>
+                Role:
+                <input type="text" value="Admin" readonly />
+              </label>
+        
+              <h3 style="margin-top: 30px;">Change Password</h3>
+              <label>
+                Current Password:
+                <input type="password" name="currentPassword" />
+              </label>
+              <label>
+                New Password:
+                <input type="password" name="newPassword" />
+              </label>
+              <label>
+                Confirm New Password:
+                <input type="password" name="confirmPassword" />
+              </label>
+              <button type="submit">Save Changes</button>
+              <hr style="margin: 30px 0; border: 1px solid #444;" />
+              <button type="button" style="background-color: #d9534f; color: white;">Delete Account</button>
+            </section>
+          </form>
+        </section>
+        
+      </section>
+        
+      </section>
+    </main>
+  </section>
+  <script src="AdminDashboard.js"></script>
 </body>
 </html>
