@@ -2,60 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multi-Role Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buyer Dashboard - ArtisanAvenue</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    section { display: none; }
-  </style>
+  <script src="buyerDB.js" defer></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50 text-gray-800">
 
-<section id="buyerDashboard" class="p-6">
-    <header class="bg-white shadow-md p-4 flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold text-gray-700">Buyer Dashboard</h1>
-      <nav>
-        <ul class="flex gap-4 text-gray-600">
-          <li><a href="products.html" class="hover:text-blue-500">Shop</a></li>
-          <li><a href="buyer-orders.html" class="hover:text-blue-500">My Orders</a></li>
-          <li><a href="buyer-wishlist.html" class="hover:text-blue-500">Wishlist</a></li>
-          <li><a href="login.html" class="hover:text-blue-500">Logout</a></li>
-        </ul>
-      </nav>
-    </header>
+  <!-- Navbar -->
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-teal-700">ArtisanAvenue</h1>
+    <nav>
+      <ul class="flex gap-6 text-gray-700 font-medium">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html">Shop</a></li>
+        <li><a href="buyerCart.html">Cart</a></li>
+        <li><a href="buyerOrders.html">Orders</a></li>
+        <li><a href="buyerWishList.html">Wishlist</a></li>
+        <li><a href="login.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <h3 class="text-xl font-semibold mb-2">My Orders</h3>
-    <ul class="bg-white rounded-xl p-4 shadow space-y-2 mb-6">
-      <li class="flex justify-between">
-        <span>Woven Basket</span>
-        <span class="text-green-600">Delivered</span>
-      </li>
-      <li class="flex justify-between">
-        <span>Handmade Necklace</span>
-        <span class="text-yellow-600">Pending</span>
-      </li>
-    </ul>
+  <!-- Main Container -->
+  <main class="p-6 space-y-10 max-w-6xl mx-auto">
 
-    <h3 class="text-xl font-semibold mb-2">My Wishlist</h3>
-    <ul class="bg-white rounded-xl p-4 shadow space-y-2">
-      <li class="flex justify-between">
-        <span>Beaded Earrings</span>
-        <span class="text-gray-600">R120</span>
-      </li>
-      <li class="flex justify-between">
-        <span>Clay Teacup Set</span>
-        <span class="text-gray-600">R280</span>
-      </li>
-    </ul>
-  </section>
-  <script>
-    
-    const role = "buyer";
+    <!-- Orders Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Your Orders</h2>
+      <article class="bg-white rounded shadow overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+            <thead class="bg-teal-600 text-white">
+                <tr>
+                    <th class="p-3"></th>
+                    <th class="p-3">Product</th>
+                    <th class="p-3">Price</th>
+                    <th class="p-3">Status</th>
+                    <th class="p-3"></th>
+                    <th class="p-3"></th>
+                </tr>
+            </thead>
+            <tbody id="orders-container" class="bg-white">
+                <!-- Orders will render here -->
+            </tbody>
+        </table>
+      </article>
+    </section>
 
-    document.getElementById("buyerDashboard").style.display = role === "buyer" ? "block" : "none";
-    document.getElementById("sellerDashboard").style.display = role === "seller" ? "block" : "none";
-    document.getElementById("adminDashboard").style.display = role === "admin" ? "block" : "none";
-  </script>
+    <!-- Wishlist Section -->
+    <section>
+      <h2 class="text-2xl font-semibold mb-4">Your Wishlist</h2>
+      <article class="bg-white rounded shadow overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-teal-600 text-white">
+            <tr>
+              <th class="p-3"></th>
+              <th class="p-3">Product</th>
+              <th class="p-3">Price</th>
+              <th class="p-3">Availability</th>
+              <th class="p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="wishlist-body" class="bg-white">
+            <!-- Wishlist items will render here -->
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+  </main>
 
 </body>
 </html>
