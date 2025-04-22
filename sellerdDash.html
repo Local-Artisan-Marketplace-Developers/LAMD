@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seller Dashboard</title>
+  <link rel="stylesheet" href="sellerDash.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Seller Dashboard</h2>
+
+    <section id="storeInfo">
+      <h3>Register Your Store</h3>
+      <input type="text" id="storeName" placeholder="Store Name" required />
+      <textarea id="storeDesc" placeholder="Store Description"></textarea>
+      <button id="registerBtn">Register Store</button>
+      <div id="storeDisplay" class="store-details"></div>
+    </section>
+
+    <section id="productSection" style="display:none;">
+      <h3>Add Product</h3>
+      <input type="text" id="productName" placeholder="Product Name" />
+      <input type="number" id="productPrice" placeholder="Price" />
+      <textarea id="productDesc" placeholder="Description"></textarea>
+      <input type="file" id="productImage" accept="image/*" />
+      <button onclick="addProduct()">Add Product</button>
+    </section>
+
+    <div id="productList" style="display:none;">
+      <h3>Your Products</h3>
+      <div id="productsContainer"></div>
+    </div>
+
+    <section id="reviews" style="display:none;">
+      <h3>Customer Reviews</h3>
+      <div class="review"><strong>Jane Doe</strong>: ⭐⭐⭐⭐ - "Lovely handmade candle!"</div>
+      <div class="review"><strong>John Smith</strong>: ⭐⭐⭐⭐⭐ - "Very impressed with the quality!"</div>
+    </section>
+  </div>
+
+  <script src="sellerDash.js"></script>
+</body>
+</html>
