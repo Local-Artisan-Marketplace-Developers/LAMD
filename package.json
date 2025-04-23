@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest"
+    "build":"azure"
   },
   "jest": {
     "testMatch": [
