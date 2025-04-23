@@ -3,7 +3,6 @@ global.TextDecoder = require("util").TextDecoder;
 const { JSDOM } = require("jsdom");
 const fs = require("fs");
 const path = require("path");
-
 // Load your HTML file to create a DOM environment for testing.
 const html = fs.readFileSync(path.resolve(__dirname, "checkout.html"), "utf8");
 const dom = new JSDOM(html, { runScripts: "dangerously" });
@@ -52,7 +51,7 @@ describe("Checkout Page Functionality", () => {
     
     form.dispatchEvent(new dom.window.Event("submit"));
 
-    expect(alertMock).toHaveBeenCalledWith("Processing payment for John Doe...");
+    expect(alertMock).toHaveBeenCalledWith(`Processing payment for ${nameInput}...`);
     alertMock.mockRestore();
   });*/
 
