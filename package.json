@@ -22,8 +22,13 @@
   "homepage": "https://github.com/Local-Artisan-Marketplace-Developers/LAMD#readme",
   "description": "",
   "scripts": {
+<<<<<<< HEAD
     "test": "jest",
     "build": "echo 'No build needed'"
+=======
+    "test": "jest"
+    "build":"azure"
+>>>>>>> c95b328c85f670406b9234028a9667b84562e4ed
   },
   "jest": {
     "testMatch": [
