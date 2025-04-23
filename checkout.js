@@ -13,13 +13,15 @@ document.getElementById('submit').addEventListener('click', async () => {
   }
 });*/
 document.getElementById('checkout-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const cardNumber = document.getElementById('card-number').value;
-    const expiryDate = document.getElementById('expiry-date').value;
-    const cvv = document.getElementById('cvv').value;
+  event.preventDefault();
   
-    // Simulate payment processing
+  const name = document.getElementById('name').value;
+  const cardNumber = document.getElementById('card-number').value;
+  const expiryDate = document.getElementById('expiry-date').value;
+  const cvv = document.getElementById('cvv').value;
+
+  // Simulate payment processing
+  if (name && cardNumber && expiryDate && cvv) {
     alert(`Processing payment for ${name}...`);
-  });
+  }
+});
