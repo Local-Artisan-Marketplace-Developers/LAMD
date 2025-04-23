@@ -1,7 +1,7 @@
+
 /**
  * @jest-environment jsdom
  */
-
 describe('Buyer Dashboard Visibility', () => {
     beforeEach(() => {
       // Simulate the HTML DOM
@@ -34,4 +34,5 @@ describe('Buyer Dashboard Visibility', () => {
       expect(document.getElementById("adminDashboard").style.display).toBe("none");
     });
   });
+  
   
