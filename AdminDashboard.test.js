@@ -16,7 +16,6 @@ jest.mock('chart.js', () => {
   };
 });
 
-// Create a mock canvas element and mock the `getContext` method
 const canvasElement = document.createElement('canvas');
 canvasElement.id = 'salesChart';
 canvasElement.getContext = jest.fn().mockReturnValue({
@@ -48,11 +47,9 @@ canvasElement.getContext = jest.fn().mockReturnValue({
 
 // Set up the DOM environment
 document.body.innerHTML = fs.readFileSync(path.resolve(__dirname, './AdminDashboard.html'), 'utf8');
-document.body.appendChild(canvasElement); // Add the canvas to the body
+document.body.appendChild(canvasElement);
 
-// Import AdminDashboard.js after the DOM setup
-import './AdminDashboard.js'; // Now this will run after the canvas is available
-
+import './AdminDashboard.js';
 // Mock window objects
 global.URL.createObjectURL = jest.fn();
 global.FileReader = class {
@@ -71,7 +68,7 @@ window.jspdf = {
 };
 window.jspdf.jsPDF.prototype.autoTable = jest.fn();
 
-// Global mocks for other functions in your code
+
 global.logout = () => {
   alert('Logged out! Redirecting to login page...');
   window.location.href = '/login';
