@@ -35,32 +35,6 @@
     "coverage-report": "jest --coverage",  
     "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html" 
   },
-  "jest": {
-    "transform": {
-      "^.+\\.[tj]sx?$": "babel-jest"
-    },
-    "testMatch": [
-      "**/?(*.)+(spec|test).[jt]s?(x)"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "collectCoverage": true,
-    "coverageDirectory": "./coverage",
-    "coverageReporters": [
-      "lcov",
-      "text",
-      "html"
-    ],
-    "testEnvironment": "jest-environment-jsdom",
-    "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/(?!(@babel|react)/)"
-    ]
-  },
   "dependencies": {
     "chart.js": "^4.4.9",
     "jspdf": "^3.0.1",
