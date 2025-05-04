@@ -20,17 +20,15 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Run tests and generate coverage
-        run: npm test -- --coverage --verbose
-
-      - name: List coverage directory contents
-        run: ls -la coverage
+      - name: Run tests with coverage
+        run: npm test -- --coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }} # Optional if public repo
+          files: ./coverage/lcov.info
           flags: unittests
           fail_ci_if_error: true
