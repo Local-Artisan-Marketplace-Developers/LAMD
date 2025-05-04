@@ -13,8 +13,9 @@ module.exports = {
     coverageReporters: ["lcov", "text", "html"],
     testEnvironment: "jest-environment-jsdom",
     collectCoverageFrom: [
-      "**/*.js",
-      "!**/node_modules/**"
+      "LAMD/**/*.js",
+      "!**/node_modules/**",
+      "!**/*.test.js"
     ],
     transformIgnorePatterns: [
       "/node_modules/(?!(@babel|react)/)"
