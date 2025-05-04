@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run tests and generate coverage
-        run: npm test -- --coverage --verbose
+        run: npm run test -- --coverage --verbose
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -32,5 +32,3 @@ jobs:
             files: ./coverage/lcov.info
             flags: unittests
             fail_ci_if_error: true
-
-       
