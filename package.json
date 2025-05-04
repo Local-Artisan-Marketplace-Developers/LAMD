@@ -29,7 +29,11 @@
   "description": "",
   "scripts": {
     "test": "jest",
-    "build": "echo 'No build needed'"
+    "pretest": "jest --coverage",  
+    "build": "echo 'No build needed'",
+    "posttest": "codecov",  
+    "coverage-report": "jest --coverage",  
+    "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html" 
   },
   "jest": {
     "transform": {
@@ -45,7 +49,8 @@
     "coverageDirectory": "./coverage",
     "coverageReporters": [
       "lcov",
-      "text"
+      "text",
+      "html"
     ],
     "testEnvironment": "jest-environment-jsdom",
     "collectCoverageFrom": [
