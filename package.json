@@ -1,7 +1,7 @@
 {
   "name": "lamd",
   "version": "1.0.0",
-  "main": "login.js",
+  "main": "index.html",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Local-Artisan-Marketplace-Developers/LAMD.git"
@@ -13,6 +13,7 @@
     "url": "https://github.com/Local-Artisan-Marketplace-Developers/LAMD/issues"
   },
   "devDependencies": {
+    "@babel/cli": "^7.27.1",
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.1",
     "@babel/preset-react": "^7.27.1",
@@ -29,13 +30,14 @@
   "description": "",
   "scripts": {
     "test": "jest",
-    "pretest": "jest --coverage",  
+    "pretest": "jest --coverage",
     "build": "echo 'No build needed'",
-    "posttest": "codecov",  
-    "coverage-report": "jest --coverage",  
-    "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html" 
+    "posttest": "codecov",
+    "coverage-report": "jest --coverage",
+    "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html"
   },
   "dependencies": {
+    "18": "^0.0.0",
     "chart.js": "^4.4.9",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2"
