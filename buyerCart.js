@@ -101,7 +101,7 @@ function checkout() {
 }
 
 /* ================  INITIAL DATA SEED  (demo) ================ */
-if (cart.length === 0 && orders.length === 0) {
+if (cart.length === 0) {
   cart.push({
     name : "Handmade Soap",
     image: "https://via.placeholder.com/100",
