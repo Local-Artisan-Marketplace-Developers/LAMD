@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Dashboard</title>
+  <link rel="stylesheet" href="sellerDashUpdated.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Seller Dashboard</h2>
+
+    <!-- Store Registration -->
+    <div id="storeSection">
+      <h3>Register Your Store</h3>
+      <label for="storeName">Store Name</label>
+      <input type="text" id="storeName" placeholder="Enter store name">
+      <label for="storeDesc">Store Description</label>
+      <textarea id="storeDesc" placeholder="Enter store description"></textarea>
+      <button id="registerBtn">Register Store</button>
+    </div>
+
+    <!-- Store Details -->
+    <div id="storeDisplay" class="store-details" style="display: none;"></div>
+
+    <!-- Product Management -->
+    <div id="productSection" style="display: none;">
+      <h3>Add Product</h3>
+      <label for="productName">Product Name</label>
+      <input type="text" id="productName" placeholder="Product name">
+      <label for="productPrice">Price</label>
+      <input type="text" id="productPrice" placeholder="Product price">
+      <label for="productDesc">Description</label>
+      <textarea id="productDesc" placeholder="Product description"></textarea>
+      <label for="productImage">Product Image</label>
+      <input type="file" id="productImage">
+      <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <!-- Product List -->
+    <div id="productList" style="display: none;">
+      <h3>Products</h3>
+      <div id="productsContainer"></div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div id="reviews" style="display: none;">
+      <h3>Customer Reviews</h3>
+      <div id="reviewsContainer"></div>
+    </div>
+  </div>
+
+  <script src="sellerDashUpdated.js"></script>
+</body>
+</html>
