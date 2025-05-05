@@ -1,38 +1,55 @@
-
 /**
  * @jest-environment jsdom
  */
-describe('Buyer Dashboard Visibility', () => {
-    beforeEach(() => {
-      // Simulate the HTML DOM
-      document.body.innerHTML = `
-        <section id="buyerDashboard" style="display:none;"></section>
-        <section id="sellerDashboard" style="display:none;"></section>
-        <section id="adminDashboard" style="display:none;"></section>
-  
-        <script>
-          const role = "buyer";
-          document.getElementById("buyerDashboard").style.display = role === "buyer" ? "block" : "none";
-          document.getElementById("sellerDashboard").style.display = role === "seller" ? "block" : "none";
-          document.getElementById("adminDashboard").style.display = role === "admin" ? "block" : "none";
-        </script>
-      `;
-  
-      // Re-run the logic that would be in the inline <script> block
-      const role = "buyer";
-      document.getElementById("buyerDashboard").style.display = role === "buyer" ? "block" : "none";
-      document.getElementById("sellerDashboard").style.display = role === "seller" ? "block" : "none";
-      document.getElementById("adminDashboard").style.display = role === "admin" ? "block" : "none";
-    });
-  
-    test('shows buyer dashboard if role is buyer', () => {
-      expect(document.getElementById("buyerDashboard").style.display).toBe("block");
-    });
-  
-    test('hides seller and admin dashboards if role is buyer', () => {
-      expect(document.getElementById("sellerDashboard").style.display).toBe("none");
-      expect(document.getElementById("adminDashboard").style.display).toBe("none");
-    });
+import {
+  addToCart,
+  removeFromWishlist,
+  removeOrder,
+  wishlist,
+  orders,
+  cart
+} from "./buyerdashboard3.js";
+
+beforeEach(() => {
+  localStorage.clear();
+  wishlist.length = 0;
+  orders.length = 0;
+  cart.length = 0;
+
+  wishlist.push({
+    name: "Test Fig",
+    image: "test.png",
+    price: 50,
+    available: true
   });
-  
-  
+
+  orders.push({
+    name: "Test Order",
+    image: "test.png",
+    price: 100,
+    status: "Shipped"
+  });
+}
+
+);
+
+describe("buyerdashboard3.js", () => {
+  test("addToCart() should move item from wishlist to cart", () => {
+    addToCart(0);
+    expect(wishlist.length).toBe(0);
+    expect(cart.length).toBe(1);
+    expect(cart[0].name).toBe("Test Fig");
+  });
+
+  test("removeFromWishlist() should remove item from wishlist", () => {
+    window.confirm = jest.fn(() => true);
+    removeFromWishlist(0);
+    expect(wishlist.length).toBe(0);
+  });
+
+  test("removeOrder() should remove an order", () => {
+    window.confirm = jest.fn(() => true);
+    removeOrder(0);
+    expect(orders.length).toBe(0);
+  });
+});
