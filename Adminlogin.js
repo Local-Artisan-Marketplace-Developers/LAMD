@@ -61,7 +61,7 @@ registerForm.addEventListener('submit', async (e) => {
 
     messageDiv.textContent = "Registration successful!";
     messageDiv.style.color = "green";
-
+    toggleForm();
     setTimeout(() => window.location.href = "AdminDashboard.html", 1500);
   } catch (error) {
     messageDiv.textContent = error.message;
