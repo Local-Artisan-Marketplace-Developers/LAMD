@@ -13,9 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Fix Git Extraheader Issue
-        run: git config --global --unset-all http.https://github.com/.extraheader || true
+        with:
+          token: ${{ secrets.GH_PAT }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
