@@ -1,3 +1,53 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js"
+import { getFirestore,setDoc, doc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA29LZsqcM2tUmNxrtybIOPDqktzcSKGkM",
+    authDomain: "lamd-aaf58.firebaseapp.com",
+    projectId: "lamd-aaf58",
+    storageBucket: "lamd-aaf58.firebasestorage.app",
+    messagingSenderId: "791577320367",
+    appId: "1:791577320367:web:a053d3cd7d06475e552d5a",
+    measurementId: "G-SDSP0S2V04"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  const auth=getAuth();
+  const db= getFirestore();
+
+  onAuthStateChanged(auth, (user)=>{
+    const loggedInUserId=localStorage.getItem('loggedInUserId');
+    if(loggedInUserId){
+      const docRef= doc(db, "users", loggedInUserId);
+        getDoc(docRef)
+        .then((docSnap)=>{
+          if(docSnap.exists()){
+            const userData=docSnap.data();
+            document.getElementById('loggedUserName').innerText=userData.name;
+            document.getElementById('loggedUserEmail').innerText=userData.email;
+            document.getElementById('loggedUserSurname').innerText=userData.surname;
+          }
+          else{
+            console.log('no document found matching id')
+          }
+        })
+        .catch((error)=>{
+          console.log("Error getting document");
+        })
+    }
+    else{
+      console.log("User Id not Found in Local Storage")
+    }
+  })
+  
+  const logoutButton=document.getElementById('')
+
+
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',
