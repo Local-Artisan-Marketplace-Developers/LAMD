@@ -13,7 +13,7 @@ if (typeof window !== 'undefined' && !window.__TEST__) {
   localStorage.setItem("cart", JSON.stringify([]));
 }
 
-import { loadFromStorage, saveToStorage, formatPrice, getStatusClass } from "./utils/dashboardUtils.js";
+import { loadFromStorage, saveToStorage, formatPrice, getStatusClass } from "./dashboardUtil.js";
 
 let wishlist = loadFromStorage("wishlist") || [];
 let orders = loadFromStorage("orders") || [];

@@ -3,7 +3,7 @@ import {
     getStatusClass,
     loadFromStorage,
     saveToStorage
-  } from "../utils/dashboardUtils.js";
+  } from "./dashboardUtil.js";
   
   describe("Utility Functions", () => {
     beforeEach(() => {
