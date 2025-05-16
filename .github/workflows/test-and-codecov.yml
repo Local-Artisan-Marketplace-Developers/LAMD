@@ -17,7 +17,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22
+          node-version: 18
 
       - name: Install dependencies
         run: npm install
@@ -25,9 +25,11 @@ jobs:
       - name: Run tests and generate coverage
         run: npm test -- --coverage --verbose
 
+      - name: Download Codecov uploader
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-            files: ./coverage/lcov.info
-            flags: unittests
-            fail_ci_if_error: true
+        run: ./codecov -f ./coverage/lcov.info -t ${{ secrets.CODECOV_TOKEN }}
+
