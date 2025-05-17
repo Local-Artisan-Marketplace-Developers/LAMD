@@ -133,3 +133,49 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #40b3e0;
 }
+
+/* New styles for Review Seller section */
+#sellerListContainer {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+#sellerListTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+#sellerListTable th,
+#sellerListTable td {
+  padding: 12px 15px;
+  border: 1px solid #444;
+  text-align: left;
+  vertical-align: top;
+}
+
+#sellerListTable th {
+  background-color: #33334d;
+}
+
+#sellerListTable tr:nth-child(even) {
+  background-color: #2a2a40;
+}
+
+#sellerListTable tr:hover {
+  background-color: #3e3e58;
+}
+
+button.deleteSellerBtn {
+  padding: 6px 12px;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+button.deleteSellerBtn:hover {
+  background-color: #c9302c;
+}
+

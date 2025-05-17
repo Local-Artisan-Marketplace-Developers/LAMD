@@ -20,6 +20,7 @@
         <a href="#">Orders</a>
         <a href="#">Reports</a>
         <a href="#">Settings</a>
+        <a href="#" id="reviewSellerNav">Review Seller</a>
         <a href="#" onclick="logout()">Logout</a>
       </nav>
     </aside>
@@ -231,9 +232,25 @@
             </section>
           </form>
         </section>
-        
       </section>
         
+
+    <section id="reviewSellerSection" hidden>
+        <h2>Review Sellers</h2>
+        <div id="sellerListContainer">
+          <table id="sellerListTable">
+            <thead>
+              <tr>
+                <th>Seller Email</th>
+                <th>Products</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerListBody">
+              <!-- Sellers populated dynamically -->
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </section>
