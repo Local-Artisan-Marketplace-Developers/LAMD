@@ -11,8 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Reset Git config to avoid extraheader issue
+        run: |
+          git config --global --unset-all http.https://github.com/.extraheader || true
+          git config --global --remove-section http.https://github.com || true
+
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -25,9 +32,10 @@ jobs:
       - name: Run tests and generate coverage
         run: npm test -- --coverage --verbose
 
+      - name: Download Codecov uploader
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-            files: ./coverage/lcov.info
-            flags: unittests
-            fail_ci_if_error: true
+        run: ./codecov -f ./coverage/lcov.info -t ${{ secrets.CODECOV_TOKEN }}

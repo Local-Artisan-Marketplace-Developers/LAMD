@@ -1,52 +1,51 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js"
-import { getFirestore,setDoc, doc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+// import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
+// import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js"
+// import { getFirestore,setDoc, doc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyA29LZsqcM2tUmNxrtybIOPDqktzcSKGkM",
-    authDomain: "lamd-aaf58.firebaseapp.com",
-    projectId: "lamd-aaf58",
-    storageBucket: "lamd-aaf58.firebasestorage.app",
-    messagingSenderId: "791577320367",
-    appId: "1:791577320367:web:a053d3cd7d06475e552d5a",
-    measurementId: "G-SDSP0S2V04"
-  };
+// const firebaseConfig = {
+//     apiKey: "AIzaSyA29LZsqcM2tUmNxrtybIOPDqktzcSKGkM",
+//     authDomain: "lamd-aaf58.firebaseapp.com",
+//     projectId: "lamd-aaf58",
+//     storageBucket: "lamd-aaf58.firebasestorage.app",
+//     messagingSenderId: "791577320367",
+//     appId: "1:791577320367:web:a053d3cd7d06475e552d5a",
+//     measurementId: "G-SDSP0S2V04"
+//   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+//   // Initialize Firebase
+//   const app = initializeApp(firebaseConfig);
+//   const analytics = getAnalytics(app);
 
-  const auth=getAuth();
-  const db= getFirestore();
+//   const auth=getAuth();
+//   const db= getFirestore();
 
-  onAuthStateChanged(auth, (user)=>{
-    const loggedInUserId=localStorage.getItem('loggedInUserId');
-    if(loggedInUserId){
-      const docRef= doc(db, "users", loggedInUserId);
-        getDoc(docRef)
-        .then((docSnap)=>{
-          if(docSnap.exists()){
-            const userData=docSnap.data();
-            document.getElementById('loggedUserName').innerText=userData.name;
-            document.getElementById('loggedUserEmail').innerText=userData.email;
-            document.getElementById('loggedUserSurname').innerText=userData.surname;
-          }
-          else{
-            console.log('no document found matching id')
-          }
-        })
-        .catch((error)=>{
-          console.log("Error getting document");
-        })
-    }
-    else{
-      console.log("User Id not Found in Local Storage")
-    }
-  })
+//   onAuthStateChanged(auth, (user)=>{
+//     const loggedInUserId=localStorage.getItem('loggedInUserId');
+//     if(loggedInUserId){
+//       const docRef= doc(db, "users", loggedInUserId);
+//         getDoc(docRef)
+//         .then((docSnap)=>{
+//           if(docSnap.exists()){
+//             const userData=docSnap.data();
+//             document.getElementById('loggedUserName').innerText=userData.name;
+//             document.getElementById('loggedUserEmail').innerText=userData.email;
+//             document.getElementById('loggedUserSurname').innerText=userData.surname;
+//           }
+//           else{
+//             console.log('no document found matching id')
+//           }
+//         })
+//         .catch((error)=>{
+//           console.log("Error getting document");
+//         })
+//     }
+//     else{
+//       console.log("User Id not Found in Local Storage")
+//     }
+//   })
   
-  const logoutButton=document.getElementById('')
-
+//   const logoutButton=document.getElementById('')
 
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
@@ -210,3 +209,131 @@ document.querySelectorAll('aside nav a').forEach(link => {
       if (section) section.style.display = (id === tabId) ? 'flex' : 'none';
     });
   }
+
+  // --- Existing code above remains unchanged ---
+
+// Mock seller data (replace with real fetch or Firebase calls)
+const sellers = [
+  {
+    email: 'yonwaba@gmail.com',
+    products: [
+      { name: 'Product A', price: 'R100' },
+      { name: 'Product B', price: 'R200' }
+    ]
+  },
+  {
+    email: 'yamkela@gmail.com',
+    products: [
+      { name: 'Product C', price: 'R300' }
+    ]
+  },
+  {
+    email: 'njabulo@gmail.com',
+    products: [
+      { name: 'Product D', price: 'R150' },
+      { name: 'Product E', price: 'R250' },
+      { name: 'Product F', price: 'R350' }
+    ]
+  },
+  {
+    email: 'katleho@gmail.com',
+    products: []
+  }
+];
+
+// Render sellers into the reviewSellerSection table
+function renderSellerList() {
+  const tbody = document.getElementById('sellerListBody');
+  tbody.innerHTML = ''; // clear previous rows
+
+  sellers.forEach((seller, index) => {
+    const tr = document.createElement('tr');
+
+    // Seller Email
+    const emailTd = document.createElement('td');
+    emailTd.textContent = seller.email;
+    tr.appendChild(emailTd);
+
+    // Products List
+    const productsTd = document.createElement('td');
+    if (seller.products.length > 0) {
+      const ul = document.createElement('ul');
+      seller.products.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.name} - ${p.price}`;
+        ul.appendChild(li);
+      });
+      productsTd.appendChild(ul);
+    } else {
+      productsTd.textContent = 'No products listed';
+    }
+    tr.appendChild(productsTd);
+
+    // Actions
+    const actionsTd = document.createElement('td');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete Seller';
+    deleteBtn.classList.add('deleteSellerBtn');
+    deleteBtn.addEventListener('click', () => {
+      if (confirm(`Are you sure you want to delete seller ${seller.email}?`)) {
+        deleteSeller(index);
+      }
+    });
+    actionsTd.appendChild(deleteBtn);
+    tr.appendChild(actionsTd);
+
+    tbody.appendChild(tr);
+  });
+}
+
+// Delete seller by index (update data source accordingly)
+function deleteSeller(index) {
+  // For now, just remove from array and rerender
+  sellers.splice(index, 1);
+  renderSellerList();
+  alert('Seller deleted successfully.');
+}
+
+// Navigation to show/hide sections including Review Seller
+document.querySelectorAll('aside nav a').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    // Remove active class from all nav links and add to clicked one
+    document.querySelectorAll('aside nav a').forEach(a => a.classList.remove('active'));
+    this.classList.add('active');
+
+    // Hide all main sections
+    const sections = ['dashboardSection', 'usersSection', 'ordersSection', 'reportsSection', 'settingsSection', 'reviewSellerSection'];
+    sections.forEach(id => {
+      const sec = document.getElementById(id);
+      if (sec) sec.hidden = true;
+    });
+
+    // Show the correct section based on nav text
+    const text = this.textContent.trim();
+    switch(text) {
+      case 'Dashboard':
+        document.getElementById('dashboardSection').hidden = false;
+        break;
+      case 'Users':
+        document.getElementById('usersSection').hidden = false;
+        break;
+      case 'Orders':
+        document.getElementById('ordersSection').hidden = false;
+        break;
+      case 'Reports':
+        document.getElementById('reportsSection').hidden = false;
+        break;
+      case 'Settings':
+        document.getElementById('settingsSection').hidden = false;
+        break;
+      case 'Review Seller':
+        document.getElementById('reviewSellerSection').hidden = false;
+        renderSellerList(); // load seller list
+        break;
+    }
+  });
+});
+
+

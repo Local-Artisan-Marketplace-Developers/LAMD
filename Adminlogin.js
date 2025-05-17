@@ -1,7 +1,20 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
-import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+import { 
+  getFirestore, 
+  setDoc, 
+  getDoc, 
+  doc 
+} from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyA29LZsqcM2tUmNxrtybIOPDqktzcSKGkM",
   authDomain: "lamd-aaf58.firebaseapp.com",
@@ -15,27 +28,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-function showMessage(message, divId) {
-  const messageDiv = document.getElementById(divId);
-  if (!messageDiv) return;
-  messageDiv.style.display = "block";
-  messageDiv.textContent = message;
-  messageDiv.style.opacity = 1;
-  setTimeout(() => {
-    messageDiv.style.opacity = 0;
-    setTimeout(() => { messageDiv.style.display = "none"; }, 500);
-  }, 4000);
-}
+// Elements
+const registerForm = document.getElementById('registerForm');
+const loginForm = document.getElementById('loginForm');
+const messageDiv = document.getElementById('message');
 
-// Toggle between Register and Login forms
+// Toggle between login/register
 window.toggleForm = function () {
-  document.getElementById('registerForm').classList.toggle('hidden');
-  document.getElementById('loginForm').classList.toggle('hidden');
+  registerForm.classList.toggle('hidden');
+  loginForm.classList.toggle('hidden');
+  messageDiv.textContent = '';
 };
 
-// Handle Sign Up form submit
-document.getElementById('registerForm').addEventListener('submit', async (e) => {
+// Register with Firebase
+registerForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = document.getElementById('regName').value.trim();
   const surname = document.getElementById('regSurname').value.trim();
@@ -46,44 +54,74 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    await setDoc(doc(db, "users", user.uid), { name, surname, email, phone });
-    showMessage("Account Created Successfully", "signUpMessage");
-    // Redirect after short delay so user sees message
-    setTimeout(() => { window.location.href = "AdminDashboard.html"; }, 1500);
+
+    await setDoc(doc(db, "users", user.uid), {
+      name, surname, email, phone
+    });
+
+    messageDiv.textContent = "Registration successful!";
+    messageDiv.style.color = "green";
+    toggleForm();
+    setTimeout(() => window.location.href = "AdminDashboard.html", 1500);
   } catch (error) {
-    if (error.code === "auth/email-already-in-use") {
-      showMessage("Email Address Already Exists", "signUpMessage");
-    } else {
-      showMessage("Unable to create user: " + error.message, "signUpMessage");
-    }
+    messageDiv.textContent = error.message;
+    messageDiv.style.color = "red";
   }
 });
 
-// Handle Login form submit
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
+// Login with Firebase
+loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    showMessage("Login successful", "signInMessage");
-    setTimeout(() => { window.location.href = "AdminDashboard.html"; }, 1000);
+    messageDiv.textContent = "Welcome back!";
+    messageDiv.style.color = "green";
+
+    setTimeout(() => window.location.href = "AdminDashboard.html", 1000);
   } catch (error) {
-    if (error.code === "auth/wrong-password" || error.code === "auth/user-not-found") {
-      showMessage("Incorrect Email or Password", "signInMessage");
-    } else {
-      showMessage("Login failed: " + error.message, "signInMessage");
-    }
+    messageDiv.textContent = "Invalid email or password!";
+    messageDiv.style.color = "red";
   }
 });
 
-// Optional: Auth state listener to keep user logged in or redirect
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // If user is logged in on Admin.html, send them directly to dashboard
-    if (window.location.pathname.endsWith("Admin.html")) {
-      window.location.href = "AdminDashboard.html";
+// Google Sign-In
+window.handleGoogleLogin = async function () {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    // Check if user already exists in Firestore
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if (!userDoc.exists()) {
+      // Save user data only on first login
+      await setDoc(doc(db, "users", user.uid), {
+        name: user.displayName,
+        email: user.email,
+        phone: user.phoneNumber || ""
+      });
     }
+
+    messageDiv.textContent = `Welcome, ${user.displayName}! (Google)`;
+    messageDiv.style.color = "green";
+    setTimeout(() => window.location.href = "AdminDashboard.html", 1000);
+  } catch (error) {
+    messageDiv.textContent = "Google Sign-In Failed: " + error.message;
+    messageDiv.style.color = "red";
+  }
+};
+
+// Attach to Google buttons
+window.onload = function () {
+  document.getElementById("googleLoginBtn").addEventListener("click", handleGoogleLogin);
+  document.getElementById("googleRegisterBtn").addEventListener("click", handleGoogleLogin);
+};
+
+// Keep user logged in
+onAuthStateChanged(auth, (user) => {
+  if (user && window.location.pathname.endsWith("Admin.html")) {
+    window.location.href = "AdminDashboard.html";
   }
 });

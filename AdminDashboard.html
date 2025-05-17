@@ -9,7 +9,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
-  <script type="module" src="firebaseAdminAuthen.js"></script>
 </head>
 <body>
   <section class="dashboard-layout">
@@ -21,6 +20,7 @@
         <a href="#">Orders</a>
         <a href="#">Reports</a>
         <a href="#">Settings</a>
+        <a href="#" id="reviewSellerNav">Review Seller</a>
         <a href="#" onclick="logout()">Logout</a>
       </nav>
     </aside>
@@ -232,9 +232,25 @@
             </section>
           </form>
         </section>
-        
       </section>
         
+
+    <section id="reviewSellerSection" hidden>
+        <h2>Review Sellers</h2>
+        <div id="sellerListContainer">
+          <table id="sellerListTable">
+            <thead>
+              <tr>
+                <th>Seller Email</th>
+                <th>Products</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sellerListBody">
+              <!-- Sellers populated dynamically -->
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
   </section>
