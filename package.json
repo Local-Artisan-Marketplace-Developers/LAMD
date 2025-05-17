@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
-    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-env": "^7.27.1",
     "@babel/preset-react": "^7.27.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -26,7 +26,7 @@
     "util": "^0.12.5"
   },
   "homepage": "https://github.com/Local-Artisan-Marketplace-Developers/LAMD#readme",
-  "description": "[![codecov](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD/graph/badge.svg?token=6NNENJZZ7F)](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD)",
+  "description": "",
   "scripts": {
     "test": "jest",
     "pretest": "jest --coverage",
@@ -34,11 +34,5 @@
     "posttest": "codecov",
     "coverage-report": "jest --coverage",
     "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html"
-  },
-  "dependencies": {
-    "chart.js": "^4.4.9",
-    "firebase": "^11.7.1",
-    "jspdf": "^3.0.1",
-    "jspdf-autotable": "^5.0.2"
   }
 }
