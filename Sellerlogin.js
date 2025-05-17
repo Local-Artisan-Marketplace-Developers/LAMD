@@ -53,7 +53,7 @@
         const user = userCredential.user;
         alert("Login successful");
         // Redirect to the home page or perform any other action
-        window.location.href = "AdminDashboard.html";
+        window.location.href = "SELLERDASHUPDATED.html";
     })
     .catch((error) => {
         const errorMessage = error.message;
@@ -69,7 +69,7 @@ function handleGoogleLogin(response) {
     .then((result) => {
       const user = result.user;
       alert(`Welcome ${user.displayName}!`);
-      window.location.href = "AdminDashboard.html";
+      window.location.href = "SELLERDASHUPDATED.html";
     })
     .catch((error) => {
       alert("Google sign-in failed: " + error.message);
@@ -93,4 +93,4 @@ window.onload = function () {
     { theme: "outline", size: "large", text: "signup_with" }
   );
 };
-  window.toggleForm = toggleForm;
+window.toggleForm = toggleForm;
