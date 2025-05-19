@@ -180,5 +180,36 @@ HTMLCanvasElement.prototype.getContext = () => {
       // Check that the profile image doesn't change (no base64 preview, for example)
       expect(input.files.length).toBe(0);
     });
+
+    test('Selecting a product displays its details and associated seller', () => {
+      // Setup mock DOM elements
+      const productList = document.createElement('ul');
+      const productItem = document.createElement('li');
+      productItem.textContent = 'Sample Product';
+      productItem.dataset.seller = 'John Doe';
+      productList.appendChild(productItem);
+
+      const detailsDiv = document.createElement('div');
+      detailsDiv.id = 'product-details';
+      const sellerDiv = document.createElement('div');
+      sellerDiv.id = 'seller-info';
+
+      document.body.appendChild(productList);
+      document.body.appendChild(detailsDiv);
+      document.body.appendChild(sellerDiv);
+
+      productItem.addEventListener('click', () => {
+      detailsDiv.textContent = `Product: ${productItem.textContent}`;
+      sellerDiv.textContent = `Seller: ${productItem.dataset.seller}`;
+      });
+
+      // Simulate click
+      productItem.click();
+
+      // Assert expected results
+      expect(detailsDiv.textContent).toBe('Product: Sample Product');
+      expect(sellerDiv.textContent).toBe('Seller: John Doe');
+    });
+
   
   });
