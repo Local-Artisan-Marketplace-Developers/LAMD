@@ -77,8 +77,8 @@ function loadProducts() {
             <p>${p.desc}</p>
             <strong>R${p.price}</strong>
             <br/>
-            <button onclick="removeProduct(${index})">Remove</button>
-            <button onclick="editProduct(${index})">Edit</button>
+            <button onclick="removeProduct(${index})" class="bg-teal-500 hover:bg-teal-600 text-white font-bold px-4 py-2 rounded mr-2">Remove</button>
+            <button onclick="editProduct(${index})" class="bg-teal-500 hover:bg-teal-600 text-white font-bold px-4 py-2 rounded">Edit</button>
             <button class="save-btn" onclick="saveProductChanges(${index})" style="display: none;">Save Changes</button>
         `;
         container.appendChild(card);
