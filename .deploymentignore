@@ -1,0 +1,14 @@
+/node_modules/
+/tests/
+/docs/
+/.git/
+/.github/
+/coverage/
+*.log
+babel.config.js
+jest.config.js
+package.json
+package-lock.json
+README.md
+*.test.js
+/dist/
