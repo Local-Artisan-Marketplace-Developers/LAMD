@@ -31,6 +31,9 @@ jobs:
 
       - name: Run tests and generate coverage
         run: npm test -- --coverage --verbose
+        
+      - name: Show coverage summary
+        run: cat ./coverage/lcov.info
 
       - name: Download Codecov uploader
         run: |
