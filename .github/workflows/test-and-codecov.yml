@@ -38,4 +38,6 @@ jobs:
           chmod +x codecov
 
       - name: Upload coverage to Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: ./codecov -f ./coverage/lcov.info -t ${{ secrets.CODECOV_TOKEN }}
