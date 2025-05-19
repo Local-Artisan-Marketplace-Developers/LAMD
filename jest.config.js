@@ -1,9 +1,9 @@
 module.exports = {
   transform: {
-    "^.+\\.[tj]sx?$": "babel-jest"
+    "^.+\\.js$": "babel-jest"
   },
   testMatch: [
-    "**/?(*.)+(spec|test).[jt]s?(x)"
+    "**/?(*.)+(spec|test).js"
   ],
   testPathIgnorePatterns: [
     "/node_modules/",
@@ -15,9 +15,9 @@ module.exports = {
   testEnvironment: "jsdom",
   collectCoverageFrom: [
     "**/*.js",
-    "!**/node_modules/**",
     "!**/*.test.js",
     "!**/*.spec.js",
+    "!node_modules/**",
     "!coverage/**",
     "!dist/**"
   ],
