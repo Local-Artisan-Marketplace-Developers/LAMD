@@ -2,61 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Cart – ArtisanAvenue</title>
-
-  <!-- Tailwind (CDN for simplicity) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buyer Cart</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Cart logic -->
-  <script src="buyerCart.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="bg-gray-50 text-gray-800">
-
-  <!-- ░░ Navbar ░░ -->
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-teal-700">ArtisanAvenue</h1>
-    <nav>
-      <ul class="flex gap-6 text-gray-700 font-medium">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html">Shop</a></li>
-        <li><a href="buyerCart.html" class="text-teal-600 font-bold">Cart</a></li>
-        <li><a href="buyerOrders.html">Orders</a></li>
-        <li><a href="buyerWishList.html">Wishlist</a></li>
-        <li><a href="login.html">Logout</a></li>
-      </ul>
-    </nav>
+<body class="bg-gray-150 text-gray-800">
+  <!-- Nav Bar -->
+  <header class="bg-gray-100 shadow">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-teal-700">ArtisanAvenue</h1>
+      <button id="menu-toggle" class="md:hidden text-2xl text-teal-700">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="mobile-menu" class="hidden md:block">
+        <ul class="flex flex-col md:flex-row md:items-center md:space-x-6 text-xl text-gray-700 mt-4 md:mt-0">
+          <li><a href="index.html" class="hover:text-teal-600" title="Home"><i class="fas fa-home"></i></a></li>
+          <li><a href="buyerCart.html" class="hover:text-teal-600" title="Cart"><i class="fas fa-shopping-cart"></i></a></li>
+          <li><a href="buyerOrders.html" class="hover:text-teal-600" title="Orders"><i class="fas fa-bag-shopping"></i></a></li>
+          <li><a href="buyerWishlist.html" class="hover:text-teal-600" title="Wishlist"><i class="fas fa-heart"></i></a></li>
+          <li><a href="login.html" class="hover:text-teal-600" title="Profile"><i class="fas fa-user"></i></a></li>
+          <li><a href="logout.html" class="hover:text-teal-600" title="Logout"><i class="fas fa-arrow-right-from-bracket"></i></a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- ░░ Main ░░ -->
-  <main class="p-6 max-w-6xl mx-auto space-y-10">
+  <!-- Cart Table -->
+  <div class="max-w-6xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Your Shopping Cart</h1>
 
-    <!-- Cart Table -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-4">Your Cart</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white shadow-md rounded">
+        <thead>
+          <tr class="bg-teal-500 text-white text-left">
+            <th class="py-3 px-4">Image</th>
+            <th class="py-3 px-4">Product</th>
+            <th class="py-3 px-4">Price</th>
+            <th class="py-3 px-4">Quantity</th>
+            <th class="py-3 px-4">Total</th>
+            <th class="py-3 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="cart-table-body">
+          <!-- JS will populate cart rows here -->
+        </tbody>
+      </table>
+    </div>
 
-      <article class="bg-white rounded shadow overflow-x-auto">
-        <table class="min-w-full text-sm text-left">
-          <thead class="bg-teal-600 text-white">
-            <tr>
-              <th class="p-3"></th>
-              <th class="p-3">Product</th>
-              <th class="p-3">Price</th>
-              <th class="p-3">Qty</th>
-              <th class="p-3">Subtotal</th>
-              <th class="p-3">Remove</th>
-            </tr>
-          </thead>
-          <tbody id="cart-body" class="bg-white">
-            <!-- rows injected by JS -->
-          </tbody>
-        </table>
-      </article>
+    <div class="mt-6 text-right">
+      <p class="text-xl font-semibold">Total: R<span id="cart-total">0.00</span></p>
+    </div>
 
-      <!-- Cart Total + Checkout -->
-      <div id="cart-summary" class="mt-6"></div>
-    </section>
-  </main>
+    <div class="mt-8 flex justify-between">
+      <button onclick="window.location.href='buyerdashboard3.html'" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-700">
+        Back to Shop
+      </button>
+      <button id="proceed-to-checkout" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-700">
+        Proceed To Checkout
+      </button>
+    </div>
+
+    <div class="mt-8 text-right">
+      <button id="clear-cart" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-700">
+        Clear Cart
+      </button>
+    </div>
+  </div>
+
+  <footer class="bg-gray-100 py-6 mt-10 text-center text-sm text-gray-600">
+    © 2025 ArtisanAvenue. All rights reserved.
+  </footer>
+
+  <script src="buyerCart.js"></script>
 </body>
 </html>
