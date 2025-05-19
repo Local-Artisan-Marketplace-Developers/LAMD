@@ -28,11 +28,7 @@
   "homepage": "https://github.com/Local-Artisan-Marketplace-Developers/LAMD#readme",
   "description": "",
   "scripts": {
-    "test": "jest",
-    "pretest": "jest --coverage",
-    "build": "echo 'No build needed'",
-    "posttest": "codecov",
-    "coverage-report": "jest --coverage",
-    "coverage-setup": "jest --coverage --coverageDirectory ./coverage --coverageReporters lcov,text,html"
+    "test": "jest --coverage --verbose",
+    "build": "echo 'No build needed'"
   }
 }
