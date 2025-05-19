@@ -2,75 +2,171 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buyer Dashboard - ArtisanAvenue</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="buyerDB.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="buyerdashboard2.js" defer></script>
 </head>
+
 <body class="bg-gray-50 text-gray-800">
 
   <!-- Navbar -->
-  <header class="bg-white shadow p-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-teal-700">ArtisanAvenue</h1>
-    <nav>
-      <ul class="flex gap-6 text-gray-700 font-medium">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html">Shop</a></li>
-        <li><a href="buyerCart.html">Cart</a></li>
-        <li><a href="buyerOrders.html">Orders</a></li>
-        <li><a href="buyerWishList.html">Wishlist</a></li>
-        <li><a href="login.html">Logout</a></li>
-      </ul>
-    </nav>
+  <header class="bg-gray-100 shadow">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-teal-700">ArtisanAvenue</h1>
+      <button id="menu-toggle" class="md:hidden text-2xl text-teal-700">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav id="mobile-menu" class="hidden md:block">
+        <ul class="flex flex-col md:flex-row md:items-center md:space-x-6 text-xl text-gray-700 mt-4 md:mt-0">
+          <li><a href="index.html" class="hover:text-teal-600" title="Home"><i class="fas fa-home"></i></a></li>
+          <li><a href="buyerCart2.html" class="hover:text-teal-600" title="Cart"><i class="fas fa-shopping-cart"></i></a></li>
+          <li><a href="buyerOrders2.html" class="hover:text-teal-600" title="Orders"><i class="fas fa-bag-shopping"></i></a></li>
+          <li><a href="buyerWishlist2.html" class="hover:text-teal-600" title="Wishlist"><i class="fas fa-heart"></i></a></li>
+          <li><a href="login.html" class="hover:text-teal-600" title="Profile"><i class="fas fa-user"></i></a></li>
+          <li><a href="logout.html" class="hover:text-teal-600" title="Logout"><i class="fas fa-arrow-right-from-bracket"></i></a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="p-6 space-y-10 max-w-6xl mx-auto">
+  <!-- Hero Section -->
+  <section class="relative bg-teal-600 text-white text-center py-20 bg-cover bg-center" style="background-image: url('/pictures/artisan-pottery-market.jpg');">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="relative z-10">
+      <h2 class="text-5xl font-bold mb-4">Shop ArtisanAvenue Market</h2>
+      <p class="text-xl mb-6">Original | Inspired | Something for Everyone</p>
+      <a href="index.html" class="bg-white text-teal-600 px-6 py-3 rounded shadow hover:bg-teal-100 font-semibold transition">Shop Now</a>
+    </div>
+  </section>
 
-    <!-- Orders Section -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-4">Your Orders</h2>
-      <article class="bg-white rounded shadow overflow-x-auto">
-        <table class="min-w-full text-sm text-left">
-            <thead class="bg-teal-600 text-white">
-                <tr>
-                    <th class="p-3"></th>
-                    <th class="p-3">Product</th>
-                    <th class="p-3">Price</th>
-                    <th class="p-3">Status</th>
-                    <th class="p-3"></th>
-                    <th class="p-3"></th>
-                </tr>
-            </thead>
-            <tbody id="orders-container" class="bg-white">
-                <!-- Orders will render here -->
-            </tbody>
-        </table>
-      </article>
-    </section>
+  <!-- Shop by Category -->
+  <section class="py-10 max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold text-center mb-6">Shop by Category</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 text-center">
+      <!-- Repeat this block for each category -->
+      <a href="category-handmade-crafts.html" class="block">
+        <img src="pictures/Handmade crafts.jpg" alt="Handmade Crafts" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Handmade Crafts</p>
+      </a>
+      <a href="category-jewelry.html" class="block">
+        <img src="pictures/Handmade Jewelry.jpg" alt="Jewelry" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Jewelry</p>
+      </a>
+      <a href="category-art-decor.html" class="block">
+        <img src="pictures/Art & Decor.jpg" alt="Art & Decor" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Art & Decor</p>
+      </a>
+      <a href="category-food-drinks.html" class="block">
+        <img src="pictures/Food & Drinks.jpg" alt="Food & Drinks" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Food & Drinks</p>
+      </a>
+      <a href="category-fashion-textiles.html" class="block">
+        <img src="pictures/Fashion and Textiles.jpg" alt="Fashion and Textiles" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Fashion and Textiles</p>
+      </a>
+      <a href="category-diverse-crafts.html" class="block">
+        <img src="pictures/Diverse Crafts.jpg" alt="Diverse Crafts" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover" />
+        <p>Diverse Crafts</p>
+      </a>
+    </div>
+  </section>
 
-    <!-- Wishlist Section -->
-    <section>
-      <h2 class="text-2xl font-semibold mb-4">Your Wishlist</h2>
-      <article class="bg-white rounded shadow overflow-x-auto">
-        <table class="min-w-full text-sm text-left">
-          <thead class="bg-teal-600 text-white">
-            <tr>
-              <th class="p-3"></th>
-              <th class="p-3">Product</th>
-              <th class="p-3">Price</th>
-              <th class="p-3">Availability</th>
-              <th class="p-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="wishlist-body" class="bg-white">
-            <!-- Wishlist items will render here -->
-          </tbody>
-        </table>
-      </article>
-    </section>
+  <!-- Featured Products -->
+  <section class="py-10 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-2xl font-bold text-center mb-6">Featured Items</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+  
+        <!-- Handmade Necklace -->
+        <div class="bg-gray-100 p-4 rounded shadow text-center" data-id="handmade-necklace">
+          <img src="pictures/Handmade Necklace.jpeg" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover">
+          <h3 class="font-medium">Handmade Necklace</h3>
+          <p class="text-sm text-gray-500">By BeadCraft Studio</p>
+          <p class="text-teal-600">R50.00</p>
+          <div class="flex justify-center space-x-4 mt-2">
+            <button class="hover:text-teal-600" title="Add to Wishlist"><i class="fas fa-heart"></i></button>
+            <button class="hover:text-teal-600" title="Add to Cart"><i class="fas fa-cart-shopping"></i></button>
+          </div>          
+        </div>
+  
+        <!-- Add more products with the same structure -->
+        <!-- Example: -->
+        <div class="bg-gray-100 p-4 rounded shadow text-center" data-id="wooden-coffee-table">
+          <img src="pictures/Coffee Table.jpeg" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover">
+          <h3 class="font-medium">Wooden Coffee Table</h3>
+          <p class="text-sm text-gray-500">By Timber Touch</p>
+          <p class="text-teal-600">R400.00</p>
+          <div class="flex justify-center space-x-4 mt-2">
+            <button class="hover:text-teal-600" title="Add to Wishlist"><i class="fas fa-heart"></i></button>
+            <button class="hover:text-teal-600" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+          </div>          
+        </div>
 
-  </main>
+        <div class="bg-gray-100 p-4 rounded shadow text-center" data-id="sun-hat">
+          <img src="pictures/Sun Hat.jpg" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover">
+          <h3 class="font-medium">Sun Hat</h3>
+          <p class="text-sm text-gray-500">By Timber Touch</p>
+          <p class="text-teal-600">R120.00</p>
+          <div class="flex justify-center space-x-4 mt-2">
+            <button class="hover:text-teal-600" title="Add to Wishlist"><i class="fas fa-heart"></i></button>
+            <button class="hover:text-teal-600" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+          </div>          
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded shadow text-center" data-id="pot-plant">
+          <img src="pictures/Pot Plant.jpg" class="mx-auto mb-2 rounded-2xl w-40 h-40 object-cover">
+          <h3 class="font-medium">Pot Plant</h3>
+          <p class="text-sm text-gray-500">By Timber Touch</p>
+          <p class="text-teal-600">R200.00</p>
+          <div class="flex justify-center space-x-4 mt-2">
+            <button class="hover:text-teal-600" title="Add to Wishlist"><i class="fas fa-heart"></i></button>
+            <button class="hover:text-teal-600" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+          </div>          
+        </div>
+  
+        <!-- Continue with Sun Hat, Plant Pot, etc., using unique data-id values -->
+        
+      </div>
+    </div>
+  </section>
+  
+  <!-- Trending Sections -->
+  <section class="py-10 max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Trending Sections</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="font-semibold text-teal-700 mb-2">Art & Decor</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><a href="index.html" class="hover:underline">Decor</a></li>
+          <li><a href="index.html" class="hover:underline">Paintings</a></li>
+          <li><a href="index.html" class="hover:underline">Handmade items</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-teal-700 mb-2">Fashion & Textiles</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><a href="index.html" class="hover:underline">Winter Clothes</a></li>
+          <li><a href="index.html" class="hover:underline">Home Accessories</a></li>
+          <li><a href="index.html" class="hover:underline">Fashion Accessories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-teal-700 mb-2">Food & Wellness</h3>
+        <ul class="space-y-2 text-gray-600">
+          <li><a href="index.html" class="hover:underline">Local Snacks</a></li>
+          <li><a href="index.html" class="hover:underline">Organic Soaps</a></li>
+          <li><a href="index.html" class="hover:underline">Teas & Remedies</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (optional) -->
+  <footer class="bg-gray-100 py-6 mt-10 text-center text-sm text-gray-600">
+    © 2025 ArtisanAvenue. All rights reserved.
+  </footer>
 
 </body>
 </html>
