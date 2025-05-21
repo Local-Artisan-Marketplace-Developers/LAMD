@@ -1,4 +1,9 @@
-
+const logoutBtn = document.getElementById('logout');
+logoutBtn.addEventListener('click', function() {
+  // Perform logout action
+  alert('Logged out! Redirecting to login page...');
+  window.location.href = "index.html";
+});
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',

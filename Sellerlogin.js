@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
   import { getAuth,GoogleAuthProvider ,signInWithCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,50 +25,68 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const Signupsubmit = document.getElementById('Signupsubmit');
-  Signupsubmit.addEventListener('click', function(event) {
+  Signupsubmit.addEventListener('click',async(event)=> {
     event.preventDefault();
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed up 
-        const user = userCredential.user;
-        alert("Account created successfully");
-        //switch to login form/SignUp form
-        toggleForm();
-    })
-    .catch((error) => {
+    const name = document.getElementById('regName').value;
+    try{
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      await setDoc(doc(db, "sellers", uid), {
+        name: name,
+        email: email,
+        role : "seller"
+      });
+      alert("Account created successfully");
+      //switch to login form/SignUp form
+      toggleForm();
+  }
+  catch(error) {
         const errorMessage = error.message;
         alert(errorMessage);
-    });
+    }
   });
   const Loginsubmit = document.getElementById('Loginsubmit');
-  Loginsubmit.addEventListener('click', function(event) {
+  Loginsubmit.addEventListener('click', async(event)=> {
     event.preventDefault();
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        alert("Login successful");
-        // Redirect to the home page or perform any other action
-        window.location.href = "SELLERDASHUPDATED.html";
-    })
-    .catch((error) => {
+    try{
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+      const userDoc = await getDoc(doc(db, "sellers", uid));
+      if( !userDoc.exists()) {
+        alert("No such user found");
+        return;
+      }
+      else{
+          alert("Login successful");
+          // Redirect to the home page or perform any other action
+          window.location.href = "SELLERDASHUPDATED.html";
+      }
+  }
+  catch(error) {
         const errorMessage = error.message;
         alert(errorMessage);
-    });
-  });
+  }
+});
   // Google Sign-In Callbacks
 function handleGoogleLogin(response) {
   
   const credential = GoogleAuthProvider.credential(response.credential);
   
   signInWithCredential(auth, credential)
-    .then((result) => {
+    .then(async (result) => {
       const user = result.user;
+      let role = "seller";
+      await setDoc(doc(db, "sellers", user.uid), {
+        name: user.displayName,
+        email: user.email,
+        role: role
+      });
       alert(`Welcome ${user.displayName}!`);
       window.location.href = "SELLERDASHUPDATED.html";
     })
