@@ -63,7 +63,6 @@
         return;
       }
       else{
-          alert("Login successful");
           // Redirect to the home page or perform any other action
           window.location.href = "sellerupload.html";
       }

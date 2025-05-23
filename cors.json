@@ -1,0 +1,12 @@
+[
+  {
+    "origin": [
+      "http://127.0.0.1:5500",
+      "https://nice-sea-0eb108e10.6.azurestaticapps.net",
+      "https://local-artisan-marketplace-developers.github.io/LAMD"
+    ],
+    "method": ["GET", "POST","PUT", "DELETE", "OPTIONS"],
+    "responseHeader": ["Content-Type", "Authorization"],
+    "maxAgeSeconds": 3600
+  }
+]
