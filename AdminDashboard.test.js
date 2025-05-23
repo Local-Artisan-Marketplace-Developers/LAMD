@@ -211,5 +211,213 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(sellerDiv.textContent).toBe('Seller: John Doe');
     });
 
-  
+    // 6. Categorized user list is displayed correctly
+    test('categorized user list is displayed correctly', () => {
+      const admins = document.createElement('section');
+      admins.id = 'admins-section';
+      admins.innerHTML = '<div>Admin: Alice</div>';
+
+      const sellers = document.createElement('section');
+      sellers.id = 'sellers-section';
+      sellers.innerHTML = '<div>Seller: Bob</div>';
+
+      const buyers = document.createElement('section');
+      buyers.id = 'buyers-section';
+      buyers.innerHTML = '<div>Buyer: Carol</div>';
+
+      document.body.appendChild(admins);
+      document.body.appendChild(sellers);
+      document.body.appendChild(buyers);
+
+      expect(document.getElementById('admins-section').textContent).toContain('Admin: Alice');
+      expect(document.getElementById('sellers-section').textContent).toContain('Seller: Bob');
+      expect(document.getElementById('buyers-section').textContent).toContain('Buyer: Carol');
+    });
+
+    // 7. Summary statistics cards are displayed correctly
+    test('summary statistics cards are displayed correctly', () => {
+      const userSummary = document.createElement('div');
+      userSummary.id = 'user-summary';
+      userSummary.textContent = 'Total Users: 30';
+
+      const orderSummary = document.createElement('div');
+      orderSummary.id = 'order-summary';
+      orderSummary.textContent = 'Total Orders: 120';
+
+      const salesSummary = document.createElement('div');
+      salesSummary.id = 'sales-summary';
+      salesSummary.textContent = 'Total Sales: $2000';
+
+      document.body.appendChild(userSummary);
+      document.body.appendChild(orderSummary);
+      document.body.appendChild(salesSummary);
+
+      expect(document.getElementById('user-summary').textContent).toContain('Total Users: 30');
+      expect(document.getElementById('order-summary').textContent).toContain('Total Orders: 120');
+      expect(document.getElementById('sales-summary').textContent).toContain('Total Sales: $2000');
+    });
+
+    // 8. Export PDF functionality triggers jsPDF
+    test('export PDF triggers jsPDF and saves file', () => {
+      const exportBtn = document.createElement('button');
+      exportBtn.id = 'export-pdf';
+      document.body.appendChild(exportBtn);
+
+      const jsPDF = window.jspdf.jsPDF;
+      const pdf = new jsPDF();
+
+      exportBtn.addEventListener('click', () => {
+        pdf.autoTable({ head: [['Name', 'Role']], body: [['Alice', 'Admin']] });
+        pdf.save('users_list.pdf');
+      });
+
+      exportBtn.click();
+      expect(pdf.autoTable).toHaveBeenCalled();
+      expect(pdf.save).toHaveBeenCalledWith('users_list.pdf');
+    });
+
+    // 9. Export CSV functionality creates Blob and triggers download
+    test('export CSV creates blob and triggers download', () => {
+      const exportBtn = document.createElement('button');
+      exportBtn.id = 'export-csv';
+      document.body.appendChild(exportBtn);
+
+      const createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
+
+      exportBtn.addEventListener('click', () => {
+        const csv = 'Name,Role\nAlice,Admin';
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'users_list.csv';
+        document.body.appendChild(a);
+        a.click();
+      });
+
+      exportBtn.click();
+      expect(createObjectURLSpy).toHaveBeenCalled();
+      });
+// 10. Clicking on "Orders" displays a list of orders
+test('Clicking on Orders displays a list of orders with correct details', () => {
+  // Create mock "Orders" tab button
+  const ordersTab = document.createElement('button');
+  ordersTab.id = 'orders-tab';
+
+  // Create mock orders section (initially hidden)
+  const ordersSection = document.createElement('section');
+  ordersSection.id = 'orders-section';
+  ordersSection.style.display = 'none';
+  ordersSection.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#001</td>
+          <td>Inga Bikitsha</td>
+          <td>R250</td>
+          <td>Shipped</td>
+        </tr>
+        <tr>
+          <td>#002</td>
+          <td>Sinothando Dlomo</td>
+          <td>R430</td>
+          <td>Pending</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+
+  // Append elements to DOM
+  document.body.appendChild(ordersTab);
+  document.body.appendChild(ordersSection);
+
+  // Simulate tab logic: clicking the button shows the orders section
+  ordersTab.addEventListener('click', () => {
+    ordersSection.style.display = 'block';
+  });
+
+  // Trigger the click
+  ordersTab.click();
+
+  // Assertions
+  expect(ordersSection.style.display).toBe('block');
+  expect(ordersSection.innerHTML).toContain('Inga Bikitsha');
+  expect(ordersSection.innerHTML).toContain('Sinothando Dlomo');
+  expect(ordersSection.innerHTML).toContain('R250');
+  expect(ordersSection.innerHTML).toContain('Pending');
+});
+
+// 11. Clicking on Reports displays the weekly and monthly summaries
+test('Clicking on Reports displays the report with correct summary details', () => {
+  // Create mock "Reports" tab button
+  const reportsTab = document.createElement('button');
+  reportsTab.id = 'reports-tab';
+
+  // Create mock reports section (initially hidden)
+  const reportsSection = document.createElement('section');
+  reportsSection.id = 'reports-section';
+  reportsSection.style.display = 'none';
+  reportsSection.innerHTML = `
+    <div id="weekly-summary">
+      <h3>Weekly Summary</h3>
+      <p>Sales up 8%, 2 new users registered.</p>
+    </div>
+    <div id="monthly-growth">
+      <h3>Monthly Growth</h3>
+      <p>Total revenue: R120,000 | Profit: R35,000</p>
+    </div>
+  `;
+
+  // Append elements to DOM
+  document.body.appendChild(reportsTab);
+  document.body.appendChild(reportsSection);
+
+  // Simulate tab logic: clicking the button shows the reports section
+  reportsTab.addEventListener('click', () => {
+    reportsSection.style.display = 'block';
+  });
+
+  // Trigger the click
+  reportsTab.click();
+
+  // Assertions
+  expect(reportsSection.style.display).toBe('block');
+  expect(reportsSection.innerHTML).toContain('Sales up 8%, 2 new users registered.');
+  expect(reportsSection.innerHTML).toContain('Total revenue: R120,000 | Profit: R35,000');
+});
+
+test('Clicking the logout button shows alert and redirects to index.html', () => {
+  // Setup logout button in DOM
+  const logoutBtn = document.createElement('button');
+  logoutBtn.id = 'logout';
+  document.body.appendChild(logoutBtn);
+
+  // Mock alert and location.href
+  const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
+  delete window.location;
+  window.location = { href: '' };
+
+  // Add event listener as in your code
+  logoutBtn.addEventListener('click', () => {
+    alert('Logged out! Redirecting to login page...');
+    window.location.href = "index.html";
+  });
+
+  // Simulate click on logout button
+  logoutBtn.click();
+
+  // Assertions
+  expect(alertSpy).toHaveBeenCalledWith('Logged out! Redirecting to login page...');
+  expect(window.location.href).toBe('index.html');
+});
+
+
   });

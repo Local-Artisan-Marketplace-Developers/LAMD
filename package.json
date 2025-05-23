@@ -30,5 +30,8 @@
   "scripts": {
     "test": "jest --coverage --verbose",
     "build": "echo 'No build needed'"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.9"
   }
 }
