@@ -16,36 +16,38 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 function attachWishlistAndCartListeners() {
-  const productCards = document.querySelectorAll('section.py-10.bg-white div.bg-gray-100');
+  const productCards = document.querySelectorAll('.product-card');
 
   productCards.forEach(card => {
     const productId = card.getAttribute("data-id");
     const image = card.querySelector("img").src;
-    const name = card.querySelector("h3").textContent;
-    const desc = card.querySelector("p.text-sm").textContent;
-    const price = card.querySelector("p.text-lg").textContent;
+    const name = card.querySelector("h4").textContent;
+    const desc = card.querySelector("p.text-sm")?.textContent || '';
+
+    const priceText = card.querySelector("strong").textContent;
+    const price = parseFloat(priceText.replace(/[^\d.]/g, '')) || 0;
 
     const wishlistBtn = card.querySelector("button[title='Add to Wishlist']");
     const cartBtn = card.querySelector("button[title='Add to Cart']");
 
-    wishlistBtn.addEventListener("click", () => {
-      let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    wishlistBtn?.addEventListener("click", () => {
+      let wishlist = JSON.parse(localStorage.getItem("wishlistItems")) || [];
       const alreadyInWishlist = wishlist.some(item => item.id === productId);
       if (!alreadyInWishlist) {
         wishlist.push({ id: productId, name, desc, price, image });
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        localStorage.setItem("wishlistItems", JSON.stringify(wishlist));
         alert("Added to wishlist!");
       } else {
         alert("Already in wishlist.");
       }
     });
 
-    cartBtn.addEventListener("click", () => {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cartBtn?.addEventListener("click", () => {
+      let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
       const alreadyInCart = cart.some(item => item.id === productId);
       if (!alreadyInCart) {
         cart.push({ id: productId, name, desc, price, image });
-        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("cartItems", JSON.stringify(cart));
         alert("Added to cart!");
       } else {
         alert("Already in cart.");
@@ -53,6 +55,8 @@ function attachWishlistAndCartListeners() {
     });
   });
 }
+
+
 
 window.onload = async () => {
   const container = document.getElementById("buyerProductsContainer");
