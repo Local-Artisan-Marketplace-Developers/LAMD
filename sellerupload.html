@@ -10,14 +10,17 @@
 <body>
     <nav class="navbar">
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="login.html" id="logout">Logout</a></li>
+      <li><a href="sellerupload.html">Home</a></li>
+      <li><a href="#" id="viewStock">View Stock</a></li>
+      <li><a href="#" id="regShop">Register Shop</a></li>
+      <li><a href="#" id="logout">Logout</a></li>
+
     </ul>
   </nav>
     <div class="container">
     <h1>Seller Dashboard</h1>
         <!-- Store Registration -->
-    <div id="storeSection">
+    <div id="storeSection" style="display: none;">
       <h3>Register Your Store</h3>
       <label for="storeName">Store Name</label>
       <input type="text" id="storeName" placeholder="Enter store name">
@@ -48,7 +51,6 @@
       <div id="productsContainer"></div>
           <!-- Reviews Section -->
     <div id="reviews" style="display: none;">
-      <h3>Customer Reviews</h3>
       <div id="reviewsContainer"></div>
     </div>
     </div>

@@ -1,14 +1,4 @@
-const logout = document.getElementById("logout");
-logout.addEventListener("click", async (e) => {
-    e.preventDefault();
-    try {
-        await auth.signOut();
-        alert("Logged out successfully.");
-        window.location.href = "index.html";
-    } catch (error) {
-        alert("Error signing out." , error);
-    }
-});
+
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',

@@ -65,7 +65,7 @@
       else{
           alert("Login successful");
           // Redirect to the home page or perform any other action
-          window.location.href = "buyerdashboard3.html";
+          window.location.href = "buyerupload.html";
       }
   }
   catch(error) {

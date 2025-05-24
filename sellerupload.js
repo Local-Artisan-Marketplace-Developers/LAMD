@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
 import { getAuth,setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js"; 
-import { getFirestore, doc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDocs, collection,deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-storage.js";
 
 const firebaseConfig = {
@@ -24,31 +24,63 @@ setPersistence(auth, browserSessionPersistence)
     .catch((error) => {
         console.error("Error setting persistence:", error);
     });
-document.getElementById("registerBtn").addEventListener("click", () => {
-    const name = document.getElementById("storeName").value.trim();
-    const desc = document.getElementById("storeDesc").value.trim();
+ document.getElementById("registerBtn").addEventListener("click", () => {
+        const name = document.getElementById("storeName").value.trim();
+        const desc = document.getElementById("storeDesc").value.trim();
 
-    if (!name || !desc) {
-        alert("Please fill out store name and description.");
+        if (!name || !desc) {
+            alert("Please fill out store name and description.");
+            return;
+        }
+
+        const store = { name, desc };
+        localStorage.setItem("sellerStore", JSON.stringify(store));
+        displayStore();
+        loadProducts();
+
+        const addProducts = confirm("Store registered successfully! Do you want to add products now?");
+        if (addProducts) {
+            document.getElementById("productSection").style.display = "block";
+            document.getElementById("productList").style.display = "block";
+            document.getElementById("reviews").style.display = "block";
+        } else {
+            document.getElementById("productSection").style.display = "none";
+            document.getElementById("productList").style.display = "block";
+            document.getElementById("reviews").style.display = "block";
+        }
+});
+const regShop = document.getElementById("regShop");
+regShop.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("storeSection").style.display = "block";
+    document.getElementById("storeDisplay").style.display = "none";
+    document.getElementById("productSection").style.display = "none";
+    document.getElementById("productList").style.display = "none";
+    document.getElementById("reviews").style.display = "none";
+});
+
+
+const viewStock = document.getElementById("viewStock");
+viewStock.addEventListener("click", (e) => {
+    e.preventDefault();
+    const store = localStorage.getItem("sellerStore");
+
+    if (!store) {
+        alert("Please register your store first.");
+        document.getElementById("storeSection").style.display = "block";
         return;
     }
 
-    const store = { name, desc };
-    localStorage.setItem("sellerStore", JSON.stringify(store));
+    document.getElementById("storeSection").style.display = "none";
+    document.getElementById("storeDisplay").style.display = "block";
+    document.getElementById("productSection").style.display = "block";
+    document.getElementById("productList").style.display = "block";
+    document.getElementById("reviews").style.display = "block";
+
     displayStore();
     loadProducts();
-
-    const addProducts = confirm("Store registered successfully! Do you want to add products now?");
-    if (addProducts) {
-        document.getElementById("productSection").style.display = "block";
-        document.getElementById("productList").style.display = "block";
-        document.getElementById("reviews").style.display = "block";
-    } else {
-        document.getElementById("productSection").style.display = "none";
-        document.getElementById("productList").style.display = "block";
-        document.getElementById("reviews").style.display = "block";
-    }
 });
+
 function displayStore() {
     const store = JSON.parse(localStorage.getItem("sellerStore"));
     const display = document.getElementById("storeDisplay");
@@ -118,7 +150,13 @@ async function loadProducts() {
                 <h4>${p.name}</h4>
                 <p>${p.desc}</p>
                 <strong>R${p.price}</strong>
+                <button class="edit-btn">Edit</button>
+                <button class="remove-btn">Remove</button>
             `;
+            const editBtn = card.querySelector(".edit-btn");
+            const removeBtn = card.querySelector(".remove-btn");
+            editBtn.addEventListener("click", () => editProduct(docSnap.id, p));
+            removeBtn.addEventListener("click", () => deleteProduct(docSnap.id));
             container.appendChild(card);
         }
     });
@@ -127,5 +165,39 @@ function clearProductForm() {
     document.getElementById("productName").value = "";
     document.getElementById("productPrice").value = "";
     document.getElementById("productDesc").value = "";
-    document.getElementById("productsContainer").value = "";
+    document.getElementById("productImage").value = "";
 }
+async function deleteProduct(id) {
+    if (confirm("Are you sure you want to remove this product?")) {
+        await deleteDoc(doc(db, "products", id));
+        alert("Product removed.");
+        loadProducts();
+    }
+}
+
+function editProduct(id, product) {
+    const name = prompt("Edit name:", product.name);
+    const price = prompt("Edit price:", product.price);
+    const desc = prompt("Edit description:", product.desc);
+
+    if (name && price && desc) {
+        updateDoc(doc(db, "products", id), {
+            name,
+            price,
+            desc
+        }).then(() => {
+            alert("Product updated.");
+            loadProducts();
+        });
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const store = localStorage.getItem("sellerStore");
+    if (store) {
+        displayStore();
+        document.getElementById("storeDisplay").style.display = "block";
+        document.getElementById("productList").style.display = "block";
+        document.getElementById("reviews").style.display = "block";
+    }
+});
