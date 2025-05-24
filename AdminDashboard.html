@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="styleAdminDashboard.css">
   <title>Admin Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
@@ -15,14 +16,15 @@
     <aside>
       <h2>Admin Panel</h2>
       <nav>
-        <a href="#">Dashboard</a>
-        <a href="#">Users</a>
-        <a href="#">Orders</a>
-        <a href="#">Reports</a>
-        <a href="#">Settings</a>
-        <a href="#" id="reviewSellerNav">Review Seller</a>
-        <a href="index.html" id="logout">Logout</a>
-      </nav>
+  <a href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+  <a href="#"><i class="fas fa-users"></i> Users</a>
+  <a href="#"><i class="fas fa-box-open"></i> Orders</a>
+  <a href="#"><i class="fas fa-file-alt"></i> Reports</a>
+  <a href="#"><i class="fas fa-cog"></i> Settings</a>
+  <a href="#" id="reviewSellerNav"><i class="fas fa-user-check"></i> Review Seller</a>
+  <a href="index.html" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</nav>
+
     </aside>
     
     <main>
@@ -36,11 +38,11 @@
         <section class="cards">
           <article class="card">
             <h3>Total Users</h3>
-            <p>4</p>
+            <p>6</p>
           </article>
           <article class="card">
             <h3>Orders Today</h3>
-            <p>2</p>
+            <p>8</p>
           </article>
           <article class="card">
             <h3>Total Sales</h3>
@@ -99,65 +101,240 @@
         <section>
           <article>
             <h3>Admin</h3>
-            <p>Email: kuhle@gmail.com</p>
+            <p>Email: kuhlebikitsha@gmail.com</p>
           </article>
           <article>
-            <h3>Approved Sellers</h3>
-            <p>Email: yonwaba@gmail.com</p>
-            <p>Email: yamkela@gmail.com</p>
-            <p>Email: njabulo@gmail.com</p>
-            <p>Email: katleho@gmail.com</p>
-          </article>
-          <article>
-            <h3>Users</h3>
-            <p>Email: sino@gmail.com</p>
-            <p>Email: inga@gmail.com</p>
-          </article>
-        </section>
-      </section>
-    
-      <section id="ordersSection" hidden>
-        <h2>Recent Orders</h2>
-        <table>
+            <h3>Sellers</h3>
+            <table>
           <thead>
             <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Amount</th>
-              <th>Status</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Email</th>
+              <th>Phone Number</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>#001</td>
-              <td>Inga Bikitsha</td>
-              <td>R250</td>
-              <td>Shipped</td>
+              <td>Inga</td>
+              <td>Bikitsha</td>
+              <td>inga@gmail.com</td>
+              <td>0634987964</td>
             </tr>
             <tr>
-              <td>#002</td>
-              <td>Sinothando Dlomo</td>
-              <td>R430</td>
-              <td>Pending</td>
+              <td>Iviwe</td>
+              <td>Bikitsha</td>
+              <td>iviwe@gmail.com</td>
+              <td>0833646442</td>
             </tr>
           </tbody>
         </table>
-      </section>
-    
-      <section id="reportsSection" hidden>
-        <h2>Reports</h2>
-        <section>
-          <article>
-            <h3>Weekly Summary</h3>
-            <p>Sales up 8%, 2 new users registered.</p>
           </article>
+
           <article>
-            <h3>Monthly Growth</h3>
-            <p>Total revenue: R120,000 | Profit: R35,000</p>
+            <h3>Users</h3>
+            <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>yonwaba</td>
+              <td>Vunda</td>
+              <td>yv@gmail.com</td>
+              <td>0831234567</td>
+            </tr>
+            <tr>
+              <td>Yamkela</td>
+              <td>Vutula</td>
+              <td>yamkela@gmail.com</td>
+              <td>0837654321</td>
+            </tr>
+          </tbody>
+        </table>
           </article>
         </section>
       </section>
     
+<section id="ordersSection">
+  <h2>Orders <span id="orderCount">8</span></h2>
+
+  <div class="order-filters">
+    <button class="active" onclick="filterOrders('all')">All Orders</button>
+    <button onclick="filterOrders('pending')">Pending</button>
+    <button onclick="filterOrders('dispatch')">Dispatch</button>
+    <button onclick="filterOrders('completed')">Completed</button>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="ordersTable">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="ordersBody">
+        <tr data-status="pending">
+          <td>#001</td>
+          <td>Inga Bikitsha</td>
+          <td>123 Main St</td>
+          <td>R250</td>
+          <td class="status-cell"><span class="status-icon red">❌</span> Pending</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending" selected>Pending</option>
+              <option value="dispatch">Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="dispatch">
+          <td>#002</td>
+          <td>Sinothando Dlomo</td>
+          <td>456 Oak Ave</td>
+          <td>R430</td>
+          <td class="status-cell"><span class="status-icon green">●</span> Dispatch</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending">Pending</option>
+              <option value="dispatch" selected>Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="completed">
+          <td>#003</td>
+          <td>Yonwaba Vunda</td>
+          <td>789 Pine Rd</td>
+          <td>R350</td>
+          <td class="status-cell"><span class="status-icon green-tick">✓</span> Completed</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending">Pending</option>
+              <option value="dispatch">Dispatch</option>
+              <option value="completed" selected>Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="pending">
+          <td>#004</td>
+          <td>Iviwe Bikitsha</td>
+          <td>234 Maple St</td>
+          <td>R120</td>
+          <td class="status-cell"><span class="status-icon red">❌</span> Pending</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending" selected>Pending</option>
+              <option value="dispatch">Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="dispatch">
+          <td>#005</td>
+          <td>Yamkela Vutula</td>
+          <td>567 Elm St</td>
+          <td>R540</td>
+          <td class="status-cell"><span class="status-icon green">●</span> Dispatch</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending">Pending</option>
+              <option value="dispatch" selected>Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="completed">
+          <td>#006</td>
+          <td>Yonwaba Vunda</td>
+          <td>789 Oak Dr</td>
+          <td>R760</td>
+          <td class="status-cell"><span class="status-icon green-tick">✓</span> Completed</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending">Pending</option>
+              <option value="dispatch">Dispatch</option>
+              <option value="completed" selected>Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="pending">
+          <td>#007</td>
+          <td>Inga Bikitsha</td>
+          <td>321 Cedar Blvd</td>
+          <td>R330</td>
+          <td class="status-cell"><span class="status-icon red">❌</span> Pending</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending" selected>Pending</option>
+              <option value="dispatch">Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+        <tr data-status="dispatch">
+          <td>#008</td>
+          <td>Sinothando Dlomo</td>
+          <td>654 Spruce Ln</td>
+          <td>R290</td>
+          <td class="status-cell"><span class="status-icon green">●</span> Dispatch</td>
+          <td>
+            <select onchange="updateOrderStatus(this)">
+              <option value="pending">Pending</option>
+              <option value="dispatch" selected>Dispatch</option>
+              <option value="completed">Completed</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<section id="reportsSection" hidden>
+  <h2 style="margin-bottom: 20px;">Sales & Performance Report</h2>
+
+  <div style="background-color: #1e1e2f; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+    <h3>Total Sales</h3>
+    <p>R12,000</p>
+  </div>
+
+  <div style="background-color: #1e1e2f; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+    <h3>Orders Overview</h3>
+    <ul>
+      <li>Completed Orders: 340</li>
+      <li>Pending Orders: 25</li>
+      <li>Dispatched Orders: 80</li>
+    </ul>
+  </div>
+
+  <div style="background-color: #1e1e2f; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+    <h3>Top Performing Products</h3>
+    <ol>
+      <li>Necklaces - 120 units</li>
+      <li>Paintings - 95 units</li>
+    </ol>
+  </div>
+
+  <div style="background-color: #1e1e2f; padding: 20px; border-radius: 10px;">
+    <h3>Monthly Revenue Chart</h3>
+    <canvas id="monthlyRevenueChart" width="400" height="200"></canvas>
+    <button onclick="exportTableToPDF()">Export Custom Report to PDF</button>
+    <button onclick="exportTableToCSV()">Export Custom Report to CSV</button>
+  </div>
+</section>
+
       <section id="settingsSection" hidden>
         <h2>Settings</h2>
         <nav style="margin-bottom: 20px;">

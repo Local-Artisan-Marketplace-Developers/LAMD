@@ -141,10 +141,6 @@ document.querySelectorAll('aside nav a').forEach(link => {
       this.classList.add('active');
     });
   });
-  function logout() {
-    alert('Logged out! Redirecting to login page...');
-    window.location.href = '/login';
-  }
   document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.getElementById('profilePicUpload');
     const profilePreview = document.getElementById('profilePreview');
@@ -296,6 +292,66 @@ document.querySelectorAll('aside nav a').forEach(link => {
         break;
     }
   });
+
+let currentFilter = "all";
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function updateOrderStatus(select) {
+  const row = select.closest("tr");
+  const newStatus = select.value;
+
+  // Update data-status attribute
+  row.setAttribute("data-status", newStatus);
+
+  // Update status cell text and icon
+  const statusCell = row.querySelector(".status-cell");
+  let icon = "";
+  if (newStatus === "pending") icon = '<span class="status-icon red">❌</span>';
+  else if (newStatus === "dispatch") icon = '<span class="status-icon green">●</span>';
+  else if (newStatus === "completed") icon = '<span class="status-icon green-tick">✓</span>';
+
+  statusCell.innerHTML = `${icon} ${capitalize(newStatus)}`;
+
+  // Re-filter to apply current filter immediately
+  filterOrders(currentFilter);
+}
+
+function filterOrders(status) {
+  currentFilter = status;
+
+  // Update active button style
+  document.querySelectorAll(".order-filters button").forEach(button => {
+    button.classList.toggle("active", button.textContent.toLowerCase() === status);
+  });
+
+  const rows = document.querySelectorAll("#ordersBody tr");
+  let visibleCount = 0;
+
+  rows.forEach(row => {
+    const rowStatus = row.getAttribute("data-status");
+    if (status === "all" || rowStatus === status) {
+      row.style.display = "";
+      visibleCount++;
+    } else {
+      row.style.display = "none";
+    }
+  });
+
+  document.getElementById("orderCount").textContent = visibleCount;
+}
+
+// Initialize
+filterOrders("all");
+
+document.querySelectorAll("#ordersBody select").forEach(select => {
+  select.addEventListener("change", () => updateOrderStatus(select));
 });
+
+});
+
+
 
 
