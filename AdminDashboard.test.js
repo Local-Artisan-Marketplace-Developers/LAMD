@@ -154,7 +154,7 @@ HTMLCanvasElement.prototype.getContext = () => {
       // Create a mock non-image file
       const invalidFile = new File(['invalid content'], 'notimage.txt', { type: 'text/plain' });
       
-      // Simulate the event for a non-image file
+   
       const event = new Event('change');
       Object.defineProperty(input, 'files', {
         value: [invalidFile],
@@ -165,7 +165,6 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(input.files[0].type).not.toBe('image/png');
     });
   
-    // 5. Profile image does not change if no file is selected
     test('profile image does not change if no file is selected', () => {
       const input = document.createElement('input');
       input.type = 'file';
@@ -177,12 +176,11 @@ HTMLCanvasElement.prototype.getContext = () => {
       });
       input.dispatchEvent(event);
       
-      // Check that the profile image doesn't change (no base64 preview, for example)
+
       expect(input.files.length).toBe(0);
     });
 
     test('Selecting a product displays its details and associated seller', () => {
-      // Setup mock DOM elements
       const productList = document.createElement('ul');
       const productItem = document.createElement('li');
       productItem.textContent = 'Sample Product';
@@ -211,7 +209,6 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(sellerDiv.textContent).toBe('Seller: John Doe');
     });
 
-    // 6. Categorized user list is displayed correctly
     test('categorized user list is displayed correctly', () => {
       const admins = document.createElement('section');
       admins.id = 'admins-section';
@@ -234,7 +231,7 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(document.getElementById('buyers-section').textContent).toContain('Buyer: Carol');
     });
 
-    // 7. Summary statistics cards are displayed correctly
+
     test('summary statistics cards are displayed correctly', () => {
       const userSummary = document.createElement('div');
       userSummary.id = 'user-summary';
@@ -257,7 +254,6 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(document.getElementById('sales-summary').textContent).toContain('Total Sales: $2000');
     });
 
-    // 8. Export PDF functionality triggers jsPDF
     test('export PDF triggers jsPDF and saves file', () => {
       const exportBtn = document.createElement('button');
       exportBtn.id = 'export-pdf';
@@ -276,7 +272,6 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(pdf.save).toHaveBeenCalledWith('users_list.pdf');
     });
 
-    // 9. Export CSV functionality creates Blob and triggers download
     test('export CSV creates blob and triggers download', () => {
       const exportBtn = document.createElement('button');
       exportBtn.id = 'export-csv';
@@ -298,13 +293,12 @@ HTMLCanvasElement.prototype.getContext = () => {
       exportBtn.click();
       expect(createObjectURLSpy).toHaveBeenCalled();
       });
-// 10. Clicking on "Orders" displays a list of orders
+
 test('Clicking on Orders displays a list of orders with correct details', () => {
   // Create mock "Orders" tab button
   const ordersTab = document.createElement('button');
   ordersTab.id = 'orders-tab';
 
-  // Create mock orders section (initially hidden)
   const ordersSection = document.createElement('section');
   ordersSection.id = 'orders-section';
   ordersSection.style.display = 'none';
