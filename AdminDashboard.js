@@ -1,4 +1,8 @@
-
+// const userInfo = document.getElementById("usersSection");
+// userInfo.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   window.location.href = "userInfo.html";
+// });
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',
@@ -158,91 +162,6 @@ document.querySelectorAll('aside nav a').forEach(link => {
     });
   }
 
-  // --- Existing code above remains unchanged ---
-
-// Mock seller data (replace with real fetch or Firebase calls)
-const sellers = [
-  {
-    email: 'yonwaba@gmail.com',
-    products: [
-      { name: 'Product A', price: 'R100' },
-      { name: 'Product B', price: 'R200' }
-    ]
-  },
-  {
-    email: 'yamkela@gmail.com',
-    products: [
-      { name: 'Product C', price: 'R300' }
-    ]
-  },
-  {
-    email: 'njabulo@gmail.com',
-    products: [
-      { name: 'Product D', price: 'R150' },
-      { name: 'Product E', price: 'R250' },
-      { name: 'Product F', price: 'R350' }
-    ]
-  },
-  {
-    email: 'katleho@gmail.com',
-    products: []
-  }
-];
-
-// Render sellers into the reviewSellerSection table
-function renderSellerList() {
-  const tbody = document.getElementById('sellerListBody');
-  tbody.innerHTML = ''; // clear previous rows
-
-  sellers.forEach((seller, index) => {
-    const tr = document.createElement('tr');
-
-    // Seller Email
-    const emailTd = document.createElement('td');
-    emailTd.textContent = seller.email;
-    tr.appendChild(emailTd);
-
-    // Products List
-    const productsTd = document.createElement('td');
-    if (seller.products.length > 0) {
-      const ul = document.createElement('ul');
-      seller.products.forEach(p => {
-        const li = document.createElement('li');
-        li.textContent = `${p.name} - ${p.price}`;
-        ul.appendChild(li);
-      });
-      productsTd.appendChild(ul);
-    } else {
-      productsTd.textContent = 'No products listed';
-    }
-    tr.appendChild(productsTd);
-
-    // Actions
-    const actionsTd = document.createElement('td');
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete Seller';
-    deleteBtn.classList.add('deleteSellerBtn');
-    deleteBtn.addEventListener('click', () => {
-      if (confirm(`Are you sure you want to delete seller ${seller.email}?`)) {
-        deleteSeller(index);
-      }
-    });
-    actionsTd.appendChild(deleteBtn);
-    tr.appendChild(actionsTd);
-
-    tbody.appendChild(tr);
-  });
-}
-
-// Delete seller by index (update data source accordingly)
-function deleteSeller(index) {
-  // For now, just remove from array and rerender
-  sellers.splice(index, 1);
-  renderSellerList();
-  alert('Seller deleted successfully.');
-}
-
-// Navigation to show/hide sections including Review Seller
 document.querySelectorAll('aside nav a').forEach(link => {
   link.addEventListener('click', function (e) {
     e.preventDefault();
@@ -265,7 +184,7 @@ document.querySelectorAll('aside nav a').forEach(link => {
         document.getElementById('dashboardSection').hidden = false;
         break;
       case 'Users':
-        document.getElementById('usersSection').hidden = false;
+        window.location.href = "userInfo.html"; // Redirect to user info page
         break;
       case 'Orders':
         document.getElementById('ordersSection').hidden = false;
@@ -277,8 +196,7 @@ document.querySelectorAll('aside nav a').forEach(link => {
         document.getElementById('settingsSection').hidden = false;
         break;
       case 'Review Seller':
-        document.getElementById('reviewSellerSection').hidden = false;
-        renderSellerList(); // load seller list
+        window.location.href = "review.html"; // Redirect to review seller page
         break;
     }
   });
