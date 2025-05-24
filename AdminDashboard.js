@@ -1,14 +1,4 @@
-const logout = document.getElementById("logout");
-logout.addEventListener("click", async (e) => {
-    e.preventDefault();
-    try {
-        await auth.signOut();
-        alert("Logged out successfully.");
-        window.location.href = "index.html";
-    } catch (error) {
-        alert("Error signing out." , error);
-    }
-});
+
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',
@@ -141,10 +131,6 @@ document.querySelectorAll('aside nav a').forEach(link => {
       this.classList.add('active');
     });
   });
-  function logout() {
-    alert('Logged out! Redirecting to login page...');
-    window.location.href = '/login';
-  }
   document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.getElementById('profilePicUpload');
     const profilePreview = document.getElementById('profilePreview');
