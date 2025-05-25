@@ -3,7 +3,6 @@ import { getAuth,setPersistence, browserSessionPersistence } from "https://www.g
 import { getFirestore, doc, setDoc, getDocs, collection,deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
 import { getStorage, ref, uploadBytes, getDownloadURL} from "https://www.gstatic.com/firebasejs/11.7.3/firebase-storage.js";
 window.addEventListener("DOMContentLoaded", async () => {
-  // your code here
 
 const firebaseConfig = {
     apiKey: "AIzaSyDV_AUjMqtpPMy5Yp4Wkwj-mCw9bCOE_-8",

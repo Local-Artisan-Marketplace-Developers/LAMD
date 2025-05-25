@@ -33,7 +33,7 @@ async function loadProducts() {
         const product = docSnap.data();
         const productId = docSnap.id;
 
-        // 🔍 Fetch seller info from the sellerId field in the product document
+        //Fetch seller info from the sellerId field in the product document
         let sellerName = "Unknown";
         let sellerEmail = "Unknown";
 
@@ -48,7 +48,7 @@ async function loadProducts() {
             }
         }
 
-        // 🎨 Create and display product card with seller info
+        // Create and display product card with seller info
         const card = document.createElement("div");
         card.className = "product-card border p-4 mb-4 rounded bg-white shadow";
         card.innerHTML = `

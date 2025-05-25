@@ -75,18 +75,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateCartDisplay();
 
-  // ✅ Proceed to Checkout button logic
+  // Proceed to Checkout button logic
   const proceedToCheckoutBtn = document.getElementById("proceed-to-checkout");
 
   if (proceedToCheckoutBtn) {
     proceedToCheckoutBtn.addEventListener("click", () => {
       const checkoutCart = cartItems.map(item => ({
         ...item,
-        qty: item.quantity // convert to expected key for checkout page
+        qty: item.quantity 
       }));
 
       localStorage.setItem("checkoutCart", JSON.stringify(checkoutCart));
-      window.location.href = "checkout.html"; // update if your filename is different
+      window.location.href = "checkout.html"; 
     });
   }
 });

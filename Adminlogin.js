@@ -1,12 +1,8 @@
-// Import the functions you need from the SDKs you need
+
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
   import { getAuth,GoogleAuthProvider ,signInWithCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyDV_AUjMqtpPMy5Yp4Wkwj-mCw9bCOE_-8",
     authDomain: "artisanavenue-13a8d.firebaseapp.com",
@@ -69,7 +65,7 @@
       }
       else{
           alert("Login successful");
-          // Redirect to the home page or perform any other action
+          // Redirect to the home page
           window.location.href = "AdminDashboard.html";
       }
   }

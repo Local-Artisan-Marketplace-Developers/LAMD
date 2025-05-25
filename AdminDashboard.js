@@ -188,7 +188,7 @@ document.querySelectorAll('aside nav a').forEach(link => {
         document.getElementById('dashboardSection').hidden = false;
         break;
       case 'Users':
-        window.location.href = "userInfo.html"; // Redirect to user info page
+        window.location.href = "userInfo.html"; 
         break;
       case 'Orders':
         document.getElementById('ordersSection').hidden = false;

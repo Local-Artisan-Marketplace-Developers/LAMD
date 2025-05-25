@@ -82,7 +82,7 @@ HTMLCanvasElement.prototype.getContext = () => {
   
   describe('AdminDashboard interactions', () => {
 
-    // 1. Profile image upload preview on change
+    // Profile image upload preview on change
     test('profile image uploads preview on change', () => {
       // Create a mock file
       const mockFile = new File(['image content'], 'profile.png', { type: 'image/png' });
@@ -99,7 +99,7 @@ HTMLCanvasElement.prototype.getContext = () => {
       });
       input.dispatchEvent(event);
       
-      // Assuming your logic converts the image to base64 for preview
+
       // Mock the src attribute change
       preview.src = 'data:image/png;base64,fakeimg';
       
@@ -107,7 +107,7 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(preview.src).toContain('data:image/png;base64,fakeimg');
     });
   
-    // 2. Clicking profile image triggers file input
+    // Clicking profile image triggers file input
     test('clicking profile image triggers file input', () => {
       const input = document.createElement('input');
       input.type = 'file';
@@ -116,14 +116,14 @@ HTMLCanvasElement.prototype.getContext = () => {
       const clickSpy = jest.spyOn(input, 'click');
       
       // Simulate a click on the preview image, which should trigger the file input click
-      preview.addEventListener('click', () => input.click());  // Make sure the click triggers the file input
+      preview.addEventListener('click', () => input.click()); 
       preview.click(); 
       expect(clickSpy).toHaveBeenCalled();
     });
   
-    // 3. Settings tab switches correctly
+    // Settings tab switches correctly
     test('Settings tab switches correctly', () => {
-      // Mock the tabs
+      
       const tabName = 'settings';
       const tab = document.createElement('div');
       tab.id = `${tabName.toLowerCase()}-tab`;
@@ -146,7 +146,7 @@ HTMLCanvasElement.prototype.getContext = () => {
       expect(tab.style.display).toBe('flex');
     });
   
-    // 4. Profile image uploads correctly for non-image file
+    //  Profile image uploads correctly for non-image file
     test('profile image uploads correctly for non-image file', () => {
       const input = document.createElement('input');
       input.type = 'file';
@@ -338,7 +338,7 @@ test('Clicking on Orders displays a list of orders with correct details', () => 
     ordersSection.style.display = 'block';
   });
 
-  // Trigger the click
+  
   ordersTab.click();
 
   // Assertions
@@ -349,13 +349,13 @@ test('Clicking on Orders displays a list of orders with correct details', () => 
   expect(ordersSection.innerHTML).toContain('Pending');
 });
 
-// 11. Clicking on Reports displays the weekly and monthly summaries
+// Clicking on Reports displays the weekly and monthly summaries
 test('Clicking on Reports displays the report with correct summary details', () => {
   // Create mock "Reports" tab button
   const reportsTab = document.createElement('button');
   reportsTab.id = 'reports-tab';
 
-  // Create mock reports section (initially hidden)
+  // Create mock reports section
   const reportsSection = document.createElement('section');
   reportsSection.id = 'reports-section';
   reportsSection.style.display = 'none';
@@ -394,12 +394,12 @@ test('Clicking the logout button shows alert and redirects to index.html', () =>
   logoutBtn.id = 'logout';
   document.body.appendChild(logoutBtn);
 
-  // Mock alert and location.href
+  
   const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
   delete window.location;
   window.location = { href: '' };
 
-  // Add event listener as in your code
+
   logoutBtn.addEventListener('click', () => {
     alert('Logged out! Redirecting to login page...');
     window.location.href = "index.html";
