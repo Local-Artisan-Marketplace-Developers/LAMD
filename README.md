@@ -1,9 +1,9 @@
 **Instructions On How To Setup And Run Our Code**
 - Clone the repository using any IDE of your choice (e.g., VS Code).
 - Click the **Code** button at the top-right of the repo and copy the HTTPS link, or use this URL:  
-  `https://github.com/Local-Artisan-Marketplace-Developers/LAMD`
+  https://github.com/Local-Artisan-Marketplace-Developers/LAMD
 - Open VS Code, navigate to the terminal, and run:  
-  `git clone https://github.com/Local-Artisan-Marketplace-Developers/LAMD`
+  git clone https://github.com/Local-Artisan-Marketplace-Developers/LAMD
 - Choose your preferred directory and open the `LAMD` folder.
 - (Optional) Install the **Live Server** extension in VS Code to run the project locally.
 - You’re all set—happy coding!
@@ -50,7 +50,7 @@
     Clone: Click the green “Code” button to copy the Git URL for cloning.
     Download: Use “Download ZIP” if you just want the files.
 9. Youtube Video demonstrating our web app
-   `https://www.youtube.com/watch?v=TsxwODB0B5A`
+   https://www.youtube.com/watch?v=TsxwODB0B5A
 
 
 
