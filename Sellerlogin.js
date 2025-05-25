@@ -87,7 +87,7 @@ function handleGoogleLogin(response) {
         role: role
       });
       alert(`Welcome ${user.displayName}!`);
-      window.location.href = "SELLERDASHUPDATED.html";
+      window.location.href = "sellerupload.html";
     })
     .catch((error) => {
       alert("Google sign-in failed: " + error.message);
