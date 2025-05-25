@@ -1,8 +1,13 @@
-// const userInfo = document.getElementById("usersSection");
-// userInfo.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   window.location.href = "userInfo.html";
-// });
+const logout = document.getElementById("logout");
+logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+        alert("Logged out successfully.");
+        window.location.href = "index.html";
+    } catch (error) {
+        alert("Error signing out." , error);
+    }
+});
 const ctxSales = document.getElementById('salesChart').getContext('2d');
 const salesChart = new Chart(ctxSales, {
   type: 'line',
@@ -41,7 +46,6 @@ const salesChart = new Chart(ctxSales, {
     }
   }
 });
-
 const ctxInventory = document.getElementById('inventoryChart').getContext('2d');
 const inventoryChart = new Chart(ctxInventory, {
   type: 'bar',
