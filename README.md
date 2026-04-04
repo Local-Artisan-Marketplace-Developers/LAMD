@@ -1,3 +1,8 @@
+# CodeCov
+
+[![codecov](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD/graph/badge.svg?token=6NNENJZZ7F)](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD)
+
+
 **Instructions On How To Setup And Run Our Code**
 - Clone the repository using any IDE of your choice (e.g., VS Code).
 - Click the **Code** button at the top-right of the repo and copy the HTTPS link, or use this URL:  
@@ -51,7 +56,3 @@
     Download: Use “Download ZIP” if you just want the files.
 9. Youtube Video demonstrating our web app
    https://www.youtube.com/watch?v=TsxwODB0B5A
-
-
-
-[![codecov](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD/graph/badge.svg?token=6NNENJZZ7F)](https://codecov.io/github/Local-Artisan-Marketplace-Developers/LAMD)
